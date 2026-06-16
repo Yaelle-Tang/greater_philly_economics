@@ -1,0 +1,529 @@
+---
+title: Explore Economic Portrait of Greater Philadelphia
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-summary: "Show code" 
+    theme: flatly
+author: 
+  - name: Yaelle Tang
+    email: yueyang_tang@berkeley.edu
+    url: https://yaelle-tang.github.io/personal-website/
+date: last-modified
+date-format: "YYYY-MM-DD HH:mm"
+execute: 
+  warning: false # suppress warnings
+---
+
+## Potential sources
+
+* [The Inquirer - Delawrae County](https://www.inquirer.com/topic/delaware-county/)
+
+1. [Ryotaro Tashiro](https://www.philadelphiafed.org/our-people/ryotaro-tashiro), outreach economist at the Federal Reserve Bank of Philadelphia, who tracks economic trends across the greater Philladelphia area. He is responsible for the [Chamber of Commerce for Greater Philadelphia Economic Outlook Survey](https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/chamber-of-commerce-for-greater-philadelphia-economic-outlook-survey). He could provide context on the broader manufacturing decline across southeastern Pennsylvania. 
+  - [Worker wages are growing faster in the Philadelphia region than any other metro area - May 11, 2023](https://www.inquirer.com/jobs/labor/unemployment-wages-philadelphia-region-labor-statistics-20230511.html)
+2. [Mike Boyer](https://www.dvrpc.org/about/staff/) (215) 238-2848, Director of Regional Planning, Delaware Valley Regional Planning Commission
+ - [WHERE HAVE ALL THE WAGES GONE? Six years postrecession, incomes are still down across the region, and in some areas by a lot. December 6, 2015](https://doccenter.inquirer.com/document/10708278)
+ 
+
+```{r}
+#| label: set-up
+#| include: false
+
+# install.packages("bea.R")
+
+# Load libraries
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(rio)
+library(bea.R)
+library(jsonlite)
+library(dplyr)
+
+```
+
+```{r}
+#| label: API-key
+#| include: false
+
+
+beakey <- "94D82C6D-AE74-41C9-ACC2-C2896A580F8E"
+```
+
+```{r}
+#| label: check the description of all the datasets
+#| include: false
+
+
+url_1 <- paste0(
+  "https://apps.bea.gov/api/data/?",
+  "UserID=", beakey,
+  "&method=GetParameterValues",
+  "&DataSetName=Regional",
+  "&ParameterName=TableName"
+)
+
+description <- fromJSON(url_1)$BEAAPI$Results$ParamValue
+
+```
+
+# Data Memo
+
+## Retrieve GDP Data
+
+::: {.callout-note collapse="false"}
+## About the data
+GDP CAGDP9 - Real GDP by industry in chained dollars [Source Page](https://apps.bea.gov/itable/?ReqID=70&step=1&_gl=1*17c6s0v*_ga*ODg5OTIwODkyLjE3ODExOTg3ODc.*_ga_J4698JNNFT*czE3ODEyMDE1OTEkbzIkZzEkdDE3ODEyMDE2MzYkajE1JGwwJGgw) 
+
+And more detail: [Regional GDP & Personal Income](https://www.bea.gov/itable/regional-gdp-and-personal-income?_gl=1*1sual4s*_ga*ODg5OTIwODkyLjE3ODExOTg3ODc.*_ga_J4698JNNFT*czE3ODEyMDE1OTEkbzIkZzEkdDE3ODEyMDE2OTEkajU4JGwwJGgw)
+:::
+
+```{r}
+#| label: Retrieve CAGDP9
+
+beaSpec <- list(
+  "UserID"      = beakey,
+  "Method"      = "GetData",
+  "DataSetName" = "Regional",
+  "TableName"   = "CAGDP9",
+  "LineCode"    = "1",
+  "GeoFips"     = "42045",
+  "Year"        = "ALL"
+)
+
+df <- beaGet(beaSpec, asWide = FALSE)
+```
+
+```{r}
+
+#| label: Test - Bucks county
+
+
+beaSpec <- list(
+  "UserID"      = beakey,
+  "Method"      = "GetData",
+  "DataSetName" = "Regional",
+  "TableName"   = "CAGDP9",
+  "LineCode"    = "ALL",
+  "GeoFips"     = "42017",
+  "Year"        = "ALL"
+)
+
+
+# "GeoFips"     = "42017,42091,42029,42045,42101,34005,34007,34015"
+gdp_bucks <- beaGet(beaSpec, asWide = FALSE)
+
+gdp_bucks
+```
+
+
+```{r}
+#| label: Get all the counties GDP by industry in all years
+
+fips_list <- c("42017", "42091", "42029", "42045", "42101", "34005", "34007", "34015")
+
+df_all <- lapply(fips_list, function(fips) {
+  Sys.sleep(1)
+  beaSpec <- list(
+    "UserID"      = beakey,
+    "Method"      = "GetData",
+    "DataSetName" = "Regional",
+    "TableName"   = "CAGDP9",
+    "LineCode"    = "ALL",
+    "GeoFips"     = fips,
+    "Year"        = "ALL"
+  )
+  beaGet(beaSpec, asWide = FALSE)
+}) |> 
+  bind_rows() |>
+  clean_names() |>
+  mutate(
+    data_value = as.numeric(data_value),
+    time_period = as.integer(time_period),
+    unit_mult = as.integer(unit_mult))
+```
+
+```{r}
+#| label:  Clean dataet
+
+
+df_clean <- df_all |>
+  mutate(line_code = str_extract(code, "(?<=-)\\d+")) |>  # AI-assisted
+  select(geo_fips, geo_name, time_period, line_code, description, cl_unit, data_value)
+
+glimpse(df_clean)
+```
+## GDP changes 2001-2025 (Real GDP, thousands of chained 2017 dollars)
+
+```{r}
+#| label: GDP changes
+
+
+df_industry_total <- df_clean |>
+  filter(description == "All industry total ") 
+
+# AI-assisted
+ggplot(df_industry_total, aes(x = time_period, y = data_value, color = geo_name)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    title = "Real GDP by County(2001-2024), Greater Philadelphia",
+    x = "Year",
+    y = "Real GDP (thousands of chained 2017 dollars)",
+    color = "County"
+  )
+
+# export data
+df_industry_total_wide <- df_industry_total |>
+  select(geo_name, time_period, data_value) |>
+  pivot_wider(names_from = geo_name, values_from = data_value)
+
+write_csv(df_industry_total_wide, "../data/processed/greater_philly_real_gdp_2001_2024.csv")
+```
+
+<iframe title="Real GDP by County (2001-2024), Greater Philadelphia" aria-label="Line chart" id="datawrapper-chart-j1Cv6" src="https://datawrapper.dwcdn.net/j1Cv6/1/" scrolling="no" frameborder="0" style="border: none;" width="600" height="642" data-external="1"></iframe>
+
+```{r}
+#| label: Select industry sectors, avoid double counting
+
+
+df_industry_structure <- df_clean |>
+  filter(time_period == 2024) |>
+  left_join(
+    df_clean |>
+      filter(time_period == 2024, line_code == "1") |>
+      select(geo_fips, total_gdp = data_value),
+    by = "geo_fips"
+  ) |> 
+  mutate(share = data_value / total_gdp) |>
+  filter(line_code != "1")
+
+options(scipen = 999)
+
+# filter
+
+df_industry_filter <- df_industry_structure |>
+  filter(line_code %in% c(3,6,10,11,12,34,35,36,45,51,56,60,64,65,69,70,76,79,82,83)) |>
+  select(geo_name,line_code,description,data_value,share)
+
+glimpse(df_industry_filter)
+
+# check
+df_industry_filter |>
+  group_by(geo_name) |>
+  summarise(total_share = sum(share, na.rm = TRUE))
+
+```
+
+## What is the industry structure in different counties of Greater Philadelphia in 2024?
+```{r} 
+#| label: Industry Structure by county in 2024
+
+# Tag "other" industry
+df_industry_filter <- df_industry_filter |>
+  mutate(
+    description_grouped = if_else(share >= 0.05, description, "Other")
+  )
+
+# df_industry_filter |> 
+#   select(geo_name, data_value, share, description_grouped) |>
+#   write_csv("../data/processed/greater_philly_industry_2024.csv")
+
+# AI-assisted
+df_industry_filter_wide <- df_industry_filter |>
+  select(geo_name, description_grouped, share) |>
+  group_by(geo_name, description_grouped) |>
+  summarise(share = sum(share), .groups = "drop") |>
+  pivot_wider(names_from = description_grouped, values_from = share)
+
+write_csv(df_industry_filter_wide, "../data/processed/greater_philly_industry_2024.csv")
+  
+```
+
+<iframe title="Industry Structure by County, Greater Philadelphia (2024)" aria-label="Stacked Bars" id="datawrapper-chart-H1mf0" src="https://datawrapper.dwcdn.net/H1mf0/3/" scrolling="no" frameborder="0" style="border: none;" width="700" height="593" data-external="1"></iframe>
+
+## How does the industry GDP contribution change in Delaware County 2001-2024
+```{r}
+#| label: Industry composition
+
+# filter out Delaware county 
+df_delaware <- df_clean |>
+  filter(geo_name == "Delaware") |>
+  left_join(
+    df_clean |>
+      filter(geo_name == "Delaware", line_code == "1") |>
+      select(time_period, total_gdp = data_value),
+    by = "time_period"
+  ) |>
+  mutate(share = data_value / total_gdp) |>
+  filter(line_code %in% c(3,6,10,11,12,34,35,36,45,51,56,60,64,65,69,70,76,79,82,83))|>
+  select(geo_name,line_code,time_period,description, share)
+
+# AI-assisted
+# calculate average share during 2001-2024, tag "other" label
+industry_avg <- df_delaware |>
+  group_by(line_code, description) |>
+  summarise(avg_share = mean(share), .groups = "drop")
+
+# share >= 0.05
+major_industries <- industry_avg |>
+  filter(avg_share >= 0.05) |>
+  pull(description)
+
+df_delaware <- df_delaware |>
+  mutate(description_grouped = if_else(description %in% major_industries, description, "Other"))
+
+df_delaware_wide <- df_delaware |>
+  group_by(time_period, description_grouped) |>
+  summarise(share = sum(share), .groups = "drop") |>
+  pivot_wider(names_from = description_grouped, values_from = share)
+
+write_csv(df_delaware_wide, "../data/processed/delaware_industry_2001-2024.csv")
+```
+
+<iframe title="Industry Composition of Delaware County's GDP (2001-2024)" aria-label="Area Chart" id="datawrapper-chart-9S1ZA" src="https://datawrapper.dwcdn.net/9S1ZA/1/" scrolling="no" frameborder="0" style="border: none;" width="650" height="624" data-external="1"></iframe>
+
+## LODES - Commute data
+
+<iframe title="Delaware County Residents Work Places Changes, 2013-2023" aria-label="Symbol map" id="datawrapper-chart-cc2yA" src="https://datawrapper.dwcdn.net/cc2yA/1/" scrolling="no" frameborder="0" style="border: none;" width="640" height="529" data-external="1"></iframe>
+
+
+::: {.callout-note collapse="false"}
+## About the data
+- LEHD([Longitudinal Employer-Household Dynamics](https://lehd.ces.census.gov/)): exploring the interactions between workers and firms
+- LODES(LEHD Origin-Destination Employment Statistics [Index of /data/lodes](https://lehd.ces.census.gov/data/lodes/) )
+- LODES Introduction pdf: https://lehd.ces.census.gov/data/lodes/LODES8/LODESTechDoc8.1.pdf
+:::
+
+<iframe title="Delaware County Residents' Work Destinations (absolute number), 2013 vs. 2023" aria-label="Grouped Bars" id="datawrapper-chart-XDBB0" src="https://datawrapper.dwcdn.net/XDBB0/1/" scrolling="no" frameborder="0" style="border: none;" width="650" height="785" data-external="1"></iframe>
+
+<iframe title="Delaware County Residents' Work Destinations (share change), 2013 vs. 2023" aria-label="Arrow Plot" id="datawrapper-chart-KG4Cv" src="https://datawrapper.dwcdn.net/KG4Cv/2/" scrolling="no" frameborder="0" style="border: none;" width="600" height="504" data-external="1"></iframe>
+
+
+
+```{r}
+#| label: people who both live and work in Delaware County
+
+
+lodes <- read_csv("../data/raw/lodes_2013-2023.csv")
+
+glimpse(lodes)
+
+lodes <- lodes |>
+  mutate(
+    w_county = str_sub(w_geocode, 1, 5),
+    h_county = str_sub(h_geocode, 1, 5)
+  )
+
+lodes_county <- lodes |>
+  group_by(year) |>
+  summarise(workers = sum(S000))
+
+# Make line chart
+# AI-assisted
+ggplot(lodes_county, aes(x = year, y = workers)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::comma, limits = c(0, NA)) +
+  labs(
+    title = "People who both work and live in Delaware County, 2013-2023",
+    x = "Year",
+    y = "Number of Workers"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+#| include: false
+
+# AI-assisted
+
+library(lehdr)
+
+od_pa_main <- grab_lodes(
+  state = "pa",
+  year = 2023,
+  lodes_type = "od",
+  job_type = "JT00",
+  segment = "S000",
+  state_part = "main"
+)
+
+od_pa_aux <- grab_lodes(
+  state = "pa",
+  year = 2023,
+  lodes_type = "od",
+  job_type = "JT00",
+  segment = "S000",
+  state_part = "aux"
+)
+
+# Delaware county workers only
+od_combined <- bind_rows(od_pa_main, od_pa_aux) |>
+  filter(str_sub(h_geocode, 1, 5) == "42045") 
+
+od_flow <- od_combined |>
+  mutate(w_county = str_sub(w_geocode, 1, 5)) |>
+  group_by(year, w_county) |>
+  summarise(workers = sum(S000), .groups = "drop")
+
+library(tidycensus)
+
+# county name and county code
+fips_lookup <- fips_codes |>
+  mutate(fips = paste0(state_code, county_code)) |>
+  select(fips, county, state)
+
+# join od_flow
+od_flow <- od_flow |>
+  left_join(fips_lookup, by = c("w_county" = "fips"))
+
+od_flow_23 <- od_flow |>
+  arrange(desc(workers))
+
+write_csv(od_flow_23, "../data/processed/od_flow_23.csv")
+```
+
+
+```{r}
+#| label: Get LODES data in 2013
+#| include: false
+od_pa_main_13 <- grab_lodes(
+  state = "pa",
+  year = 2013,
+  lodes_type = "od",
+  job_type = "JT00",
+  segment = "S000",
+  state_part = "main"
+)
+
+od_pa_aux_13 <- grab_lodes(
+  state = "pa",
+  year = 2013,
+  lodes_type = "od",
+  job_type = "JT00",
+  segment = "S000",
+  state_part = "aux"
+)
+
+od_flow_13 <- bind_rows(od_pa_main_13, od_pa_aux_13) |>
+  filter(str_sub(h_geocode, 1, 5) == "42045") |>
+  mutate(w_county = str_sub(w_geocode, 1, 5)) |>
+  group_by(year, w_county) |>
+  summarise(workers = sum(S000), .groups = "drop") |>
+  left_join(fips_lookup, by = c("w_county" = "fips")) |>
+  arrange(desc(workers)) |>
+  write_csv("../data/processed/od_flow_13.csv")
+```
+
+```{r}
+#| label: Compare how commute number change in the past decade in Delaware County
+#| echo: true
+od_flow_change <- od_flow_13 |>
+  select(w_county, county, state, workers_13 = workers) |>
+  left_join(
+    od_flow_23 |> select(w_county, workers_23 = workers),
+    by = "w_county"
+  ) |>
+  mutate(
+    change = workers_23 - workers_13,
+    pct_change = (workers_23 - workers_13) / workers_13 * 100
+  ) |>
+  arrange(desc(change))
+
+od_flow_change_table <- od_flow_change |>
+  select(w_county, county, change, pct_change)
+
+od_flow_change_table |> print (n =Inf)
+
+write_csv(od_flow_change_table, "../data/processed/od_flow_change.csv")
+
+```
+
+
+```{r}
+ del_all <- read.csv("../data/raw/lodes_del_any_23_13.csv") |> 
+  clean_names()
+
+glimpse(del_all)
+
+# unique(del_all$year)
+# unique(del_all$h_geocode) 
+
+# Clean data
+del_all_flow <- del_all |>
+  mutate(h_county = str_sub(h_geocode, 1, 5)) |>
+  mutate(w_county = str_sub(w_geocode, 1, 5)) |> 
+  group_by(year, w_county) |>
+  summarise(workers = sum(s000), .groups = "drop") |>
+  left_join(fips_lookup, by = c("w_county" = "fips")) 
+
+# Mutate change and percantage change number
+del_all_flow_wide <- del_all_flow |>
+  filter(year %in% c(2013, 2023)) |>
+  pivot_wider(names_from = year, values_from = workers, names_prefix = "workers_") |>
+  mutate(
+    change = workers_2023 - workers_2013,
+    pct_change = (workers_2023 - workers_2013) / workers_2013 * 100
+  ) |>
+  arrange(desc(change))
+
+del_all_flow |> 
+  print (n =Inf)
+
+```
+
+```{r}
+# Total number of workers in 2023 and 2013
+del_all_flow |>
+  filter(year %in% c(2013, 2023)) |>
+  group_by(year) |>
+  summarise(total_workers = sum(workers))
+```
+```{r}
+# share change
+del_all_flow_wide <- del_all_flow_wide |>
+  mutate(
+    share_2013 = workers_2013 / sum(workers_2013, na.rm = TRUE),
+    share_2023 = workers_2023 / sum(workers_2023, na.rm = TRUE) 
+  ) |>
+  mutate(share_change = share_2023 - share_2013)
+
+```
+
+```{r}
+del_all_top_10 <- del_all_flow_wide |>
+  slice_max(workers_2023, n = 10) |> 
+  select(w_county, county, share_2013, share_2023, workers_2013, workers_2023, change) |> 
+  write_csv("../data/processed/del_all_top_10.csv")
+
+del_all_top_10_column <- del_all_flow_wide |>
+  slice_max(workers_2023, n = 10) |> 
+  select(county,state,workers_2013, workers_2023) |> 
+  bind_rows(
+    tibble(
+      county = "Total",
+      state = NA,
+      workers_2013 = sum(del_all_flow_wide$workers_2013, na.rm = TRUE),
+      workers_2023 = sum(del_all_flow_wide$workers_2023, na.rm = TRUE)
+    )
+  ) |>
+  write_csv("../data/processed/del_all_top_10_column.csv")
+```
+
+
+::: {.callout-note collapse="false"}
+## About the data
+- BLS - Quarterly Census of Employment and Wages (QCEW)
+- Source: https://data.bls.gov/cew/apps/table_maker/v4/table_maker.htm#type=7&year=2025&qtr=A&own=5&area=42045&supp=0
+- NAICS Code instruction: https://www.bls.gov/iag/tgs/iag_index_naics.htm
+- data dictionary: https://www.bls.gov/cew/additional-resources/open-data/csv-data-slices.htm 
+- file download: http://www.bls.gov/cew/data/api/2025/a/area/42045.csv
+:::
+
+
+

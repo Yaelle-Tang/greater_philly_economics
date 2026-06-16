@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Yaelle Tang">
+
+<title>Explore Economic Portrait of Greater Philadelphia</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="explore_files/libs/clipboard/clipboard.min.js"></script>
+<script src="explore_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="explore_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="explore_files/libs/quarto-html/popper.min.js"></script>
+<script src="explore_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="explore_files/libs/quarto-html/anchor.min.js"></script>
+<link href="explore_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="explore_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="explore_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="explore_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="explore_files/libs/bootstrap/bootstrap-1a9011c99ff3470dca5095ea45ed0705.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#potential-sources" id="toc-potential-sources" class="nav-link active" data-scroll-target="#potential-sources">Potential sources</a></li>
+  <li><a href="#data-memo" id="toc-data-memo" class="nav-link" data-scroll-target="#data-memo">Data Memo</a>
+  <ul class="collapse">
+  <li><a href="#retrieve-gdp-data" id="toc-retrieve-gdp-data" class="nav-link" data-scroll-target="#retrieve-gdp-data">Retrieve GDP Data</a></li>
+  <li><a href="#gdp-changes-2001-2025-real-gdp-thousands-of-chained-2017-dollars" id="toc-gdp-changes-2001-2025-real-gdp-thousands-of-chained-2017-dollars" class="nav-link" data-scroll-target="#gdp-changes-2001-2025-real-gdp-thousands-of-chained-2017-dollars">GDP changes 2001-2025 (Real GDP, thousands of chained 2017 dollars)</a></li>
+  <li><a href="#what-is-the-industry-structure-in-different-counties-of-greater-philadelphia-in-2024" id="toc-what-is-the-industry-structure-in-different-counties-of-greater-philadelphia-in-2024" class="nav-link" data-scroll-target="#what-is-the-industry-structure-in-different-counties-of-greater-philadelphia-in-2024">What is the industry structure in different counties of Greater Philadelphia in 2024?</a></li>
+  <li><a href="#how-does-the-industry-gdp-contribution-change-in-delaware-county-2001-2024" id="toc-how-does-the-industry-gdp-contribution-change-in-delaware-county-2001-2024" class="nav-link" data-scroll-target="#how-does-the-industry-gdp-contribution-change-in-delaware-county-2001-2024">How does the industry GDP contribution change in Delaware County 2001-2024</a></li>
+  <li><a href="#lodes---commute-data" id="toc-lodes---commute-data" class="nav-link" data-scroll-target="#lodes---commute-data">LODES - Commute data</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Explore Economic Portrait of Greater Philadelphia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://yaelle-tang.github.io/personal-website/">Yaelle Tang</a> <a href="mailto:yueyang_tang@berkeley.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-06-16 15:30</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="potential-sources" class="level2">
+<h2 class="anchored" data-anchor-id="potential-sources">Potential sources</h2>
+<ul>
+<li><a href="https://www.inquirer.com/topic/delaware-county/">The Inquirer - Delawrae County</a></li>
+</ul>
+<ol type="1">
+<li><a href="https://www.philadelphiafed.org/our-people/ryotaro-tashiro">Ryotaro Tashiro</a>, outreach economist at the Federal Reserve Bank of Philadelphia, who tracks economic trends across the greater Philladelphia area. He is responsible for the <a href="https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/chamber-of-commerce-for-greater-philadelphia-economic-outlook-survey">Chamber of Commerce for Greater Philadelphia Economic Outlook Survey</a>. He could provide context on the broader manufacturing decline across southeastern Pennsylvania.</li>
+</ol>
+<ul>
+<li><a href="https://www.inquirer.com/jobs/labor/unemployment-wages-philadelphia-region-labor-statistics-20230511.html">Worker wages are growing faster in the Philadelphia region than any other metro area - May 11, 2023</a></li>
+</ul>
+<ol start="2" type="1">
+<li><a href="https://www.dvrpc.org/about/staff/">Mike Boyer</a> (215) 238-2848, Director of Regional Planning, Delaware Valley Regional Planning Commission</li>
+</ol>
+<ul>
+<li><a href="https://doccenter.inquirer.com/document/10708278">WHERE HAVE ALL THE WAGES GONE? Six years postrecession, incomes are still down across the region, and in some areas by a lot. December 6, 2015</a></li>
+</ul>
+</section>
+<section id="data-memo" class="level1">
+<h1>Data Memo</h1>
+<section id="retrieve-gdp-data" class="level2">
+<h2 class="anchored" data-anchor-id="retrieve-gdp-data">Retrieve GDP Data</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About the data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>GDP CAGDP9 - Real GDP by industry in chained dollars <a href="https://apps.bea.gov/itable/?ReqID=70&amp;step=1&amp;_gl=1*17c6s0v*_ga*ODg5OTIwODkyLjE3ODExOTg3ODc.*_ga_J4698JNNFT*czE3ODEyMDE1OTEkbzIkZzEkdDE3ODEyMDE2MzYkajE1JGwwJGgw">Source Page</a></p>
+<p>And more detail: <a href="https://www.bea.gov/itable/regional-gdp-and-personal-income?_gl=1*1sual4s*_ga*ODg5OTIwODkyLjE3ODExOTg3ODc.*_ga_J4698JNNFT*czE3ODEyMDE1OTEkbzIkZzEkdDE3ODEyMDE2OTEkajU4JGwwJGgw">Regional GDP &amp; Personal Income</a></p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>beaSpec <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"UserID"</span>      <span class="ot">=</span> beakey,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Method"</span>      <span class="ot">=</span> <span class="st">"GetData"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DataSetName"</span> <span class="ot">=</span> <span class="st">"Regional"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TableName"</span>   <span class="ot">=</span> <span class="st">"CAGDP9"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LineCode"</span>    <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GeoFips"</span>     <span class="ot">=</span> <span class="st">"42045"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Year"</span>        <span class="ot">=</span> <span class="st">"ALL"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">beaGet</span>(beaSpec, <span class="at">asWide =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: Test - Bucks county</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>beaSpec <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"UserID"</span>      <span class="ot">=</span> beakey,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Method"</span>      <span class="ot">=</span> <span class="st">"GetData"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DataSetName"</span> <span class="ot">=</span> <span class="st">"Regional"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TableName"</span>   <span class="ot">=</span> <span class="st">"CAGDP9"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LineCode"</span>    <span class="ot">=</span> <span class="st">"ALL"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GeoFips"</span>     <span class="ot">=</span> <span class="st">"42017"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Year"</span>        <span class="ot">=</span> <span class="st">"ALL"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># "GeoFips"     = "42017,42091,42029,42045,42101,34005,34007,34015"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>gdp_bucks <span class="ot">&lt;-</span> <span class="fu">beaGet</span>(beaSpec, <span class="at">asWide =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>gdp_bucks</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Code GeoFips GeoName TimePeriod                   Description
+        &lt;char&gt;  &lt;char&gt;  &lt;char&gt;     &lt;char&gt;                        &lt;char&gt;
+  1: CAGDP9-87   42017   Bucks       2001 Natural resources and mining 
+  2: CAGDP9-87   42017   Bucks       2002 Natural resources and mining 
+  3: CAGDP9-87   42017   Bucks       2003 Natural resources and mining 
+  4: CAGDP9-87   42017   Bucks       2004 Natural resources and mining 
+  5: CAGDP9-87   42017   Bucks       2005 Natural resources and mining 
+ ---                                                                   
+812: CAGDP9-89   42017   Bucks       2020 Transportation and utilities 
+813: CAGDP9-89   42017   Bucks       2021 Transportation and utilities 
+814: CAGDP9-89   42017   Bucks       2022 Transportation and utilities 
+815: CAGDP9-89   42017   Bucks       2023 Transportation and utilities 
+816: CAGDP9-89   42017   Bucks       2024 Transportation and utilities 
+                               CL_UNIT UNIT_MULT DataValue NoteRef
+                                &lt;char&gt;    &lt;char&gt;     &lt;num&gt;  &lt;char&gt;
+  1: Thousands of chained 2017 dollars         3    117205    &lt;NA&gt;
+  2: Thousands of chained 2017 dollars         3    152392    &lt;NA&gt;
+  3: Thousands of chained 2017 dollars         3    141044    &lt;NA&gt;
+  4: Thousands of chained 2017 dollars         3    146504    &lt;NA&gt;
+  5: Thousands of chained 2017 dollars         3    118765    &lt;NA&gt;
+ ---                                                              
+812: Thousands of chained 2017 dollars         3   1301602    &lt;NA&gt;
+813: Thousands of chained 2017 dollars         3   1305869    &lt;NA&gt;
+814: Thousands of chained 2017 dollars         3   1253758    &lt;NA&gt;
+815: Thousands of chained 2017 dollars         3   1179456    &lt;NA&gt;
+816: Thousands of chained 2017 dollars         3   1263395    &lt;NA&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fips_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"42017"</span>, <span class="st">"42091"</span>, <span class="st">"42029"</span>, <span class="st">"42045"</span>, <span class="st">"42101"</span>, <span class="st">"34005"</span>, <span class="st">"34007"</span>, <span class="st">"34015"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_all <span class="ot">&lt;-</span> <span class="fu">lapply</span>(fips_list, <span class="cf">function</span>(fips) {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  beaSpec <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"UserID"</span>      <span class="ot">=</span> beakey,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Method"</span>      <span class="ot">=</span> <span class="st">"GetData"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DataSetName"</span> <span class="ot">=</span> <span class="st">"Regional"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TableName"</span>   <span class="ot">=</span> <span class="st">"CAGDP9"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LineCode"</span>    <span class="ot">=</span> <span class="st">"ALL"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GeoFips"</span>     <span class="ot">=</span> fips,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Year"</span>        <span class="ot">=</span> <span class="st">"ALL"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">beaGet</span>(beaSpec, <span class="at">asWide =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_value =</span> <span class="fu">as.numeric</span>(data_value),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_period =</span> <span class="fu">as.integer</span>(time_period),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">unit_mult =</span> <span class="fu">as.integer</span>(unit_mult))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> df_all <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">line_code =</span> <span class="fu">str_extract</span>(code, <span class="st">"(?&lt;=-)</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">|&gt;</span>  <span class="co"># AI-assisted</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_fips, geo_name, time_period, line_code, description, cl_unit, data_value)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,528
+Columns: 7
+$ geo_fips    &lt;chr&gt; "42017", "42017", "42017", "42017", "42017", "42017", "420…
+$ geo_name    &lt;chr&gt; "Bucks", "Bucks", "Bucks", "Bucks", "Bucks", "Bucks", "Buc…
+$ time_period &lt;int&gt; 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010…
+$ line_code   &lt;chr&gt; "87", "87", "87", "87", "87", "87", "87", "87", "87", "87"…
+$ description &lt;chr&gt; "Natural resources and mining ", "Natural resources and mi…
+$ cl_unit     &lt;chr&gt; "Thousands of chained 2017 dollars", "Thousands of chained…
+$ data_value  &lt;dbl&gt; 117205, 152392, 141044, 146504, 118765, 83865, 75017, 6348…</code></pre>
+</div>
+</div>
+</section>
+<section id="gdp-changes-2001-2025-real-gdp-thousands-of-chained-2017-dollars" class="level2">
+<h2 class="anchored" data-anchor-id="gdp-changes-2001-2025-real-gdp-thousands-of-chained-2017-dollars">GDP changes 2001-2025 (Real GDP, thousands of chained 2017 dollars)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_industry_total <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(description <span class="sc">==</span> <span class="st">"All industry total "</span>) </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># AI-assisted</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_industry_total, <span class="fu">aes</span>(<span class="at">x =</span> time_period, <span class="at">y =</span> data_value, <span class="at">color =</span> geo_name)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Real GDP by County(2001-2024), Greater Philadelphia"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Real GDP (thousands of chained 2017 dollars)"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"County"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="explore_files/figure-html/GDP%20changes-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># export data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_industry_total_wide <span class="ot">&lt;-</span> df_industry_total <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_name, time_period, data_value) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> geo_name, <span class="at">values_from =</span> data_value)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_industry_total_wide, <span class="st">"../data/processed/greater_philly_real_gdp_2001_2024.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<iframe title="Real GDP by County (2001-2024), Greater Philadelphia" aria-label="Line chart" id="datawrapper-chart-j1Cv6" src="https://datawrapper.dwcdn.net/j1Cv6/1/" scrolling="no" frameborder="0" style="border: none;" width="600" height="642" data-external="1">
+</iframe>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_industry_structure <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_period <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    df_clean <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(time_period <span class="sc">==</span> <span class="dv">2024</span>, line_code <span class="sc">==</span> <span class="st">"1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(geo_fips, <span class="at">total_gdp =</span> data_value),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"geo_fips"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> data_value <span class="sc">/</span> total_gdp) <span class="sc">|&gt;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(line_code <span class="sc">!=</span> <span class="st">"1"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># filter</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>df_industry_filter <span class="ot">&lt;-</span> df_industry_structure <span class="sc">|&gt;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(line_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">34</span>,<span class="dv">35</span>,<span class="dv">36</span>,<span class="dv">45</span>,<span class="dv">51</span>,<span class="dv">56</span>,<span class="dv">60</span>,<span class="dv">64</span>,<span class="dv">65</span>,<span class="dv">69</span>,<span class="dv">70</span>,<span class="dv">76</span>,<span class="dv">79</span>,<span class="dv">82</span>,<span class="dv">83</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_name,line_code,description,data_value,share)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_industry_filter)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 160
+Columns: 5
+$ geo_name    &lt;chr&gt; "Bucks", "Bucks", "Bucks", "Bucks", "Bucks", "Bucks", "Buc…
+$ line_code   &lt;chr&gt; "83", "82", "79", "76", "70", "69", "65", "64", "60", "56"…
+$ description &lt;chr&gt; "Government and government enterprises ", "Other services …
+$ data_value  &lt;dbl&gt; 2273519, 888830, 831584, 516736, 4383985, 445144, 1200324,…
+$ share       &lt;dbl&gt; 0.0594509995, 0.0232423093, 0.0217453648, 0.0135123004, 0.…</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df_industry_filter <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_name) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_share =</span> <span class="fu">sum</span>(share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 2
+  geo_name     total_share
+  &lt;chr&gt;              &lt;dbl&gt;
+1 Bucks              1.00 
+2 Burlington         1.02 
+3 Camden             1.00 
+4 Chester            1.01 
+5 Delaware           1.01 
+6 Gloucester         0.996
+7 Montgomery         1.01 
+8 Philadelphia       0.991</code></pre>
+</div>
+</div>
+</section>
+<section id="what-is-the-industry-structure-in-different-counties-of-greater-philadelphia-in-2024" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-industry-structure-in-different-counties-of-greater-philadelphia-in-2024">What is the industry structure in different counties of Greater Philadelphia in 2024?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tag "other" industry</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df_industry_filter <span class="ot">&lt;-</span> df_industry_filter <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">description_grouped =</span> <span class="fu">if_else</span>(share <span class="sc">&gt;=</span> <span class="fl">0.05</span>, description, <span class="st">"Other"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># df_industry_filter |&gt; </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(geo_name, data_value, share, description_grouped) |&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   write_csv("../data/processed/greater_philly_industry_2024.csv")</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># AI-assisted</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>df_industry_filter_wide <span class="ot">&lt;-</span> df_industry_filter <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_name, description_grouped, share) <span class="sc">|&gt;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geo_name, description_grouped) <span class="sc">|&gt;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">share =</span> <span class="fu">sum</span>(share), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> description_grouped, <span class="at">values_from =</span> share)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_industry_filter_wide, <span class="st">"../data/processed/greater_philly_industry_2024.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<iframe title="Industry Structure by County, Greater Philadelphia (2024)" aria-label="Stacked Bars" id="datawrapper-chart-H1mf0" src="https://datawrapper.dwcdn.net/H1mf0/3/" scrolling="no" frameborder="0" style="border: none;" width="700" height="593" data-external="1">
+</iframe>
+</section>
+<section id="how-does-the-industry-gdp-contribution-change-in-delaware-county-2001-2024" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-the-industry-gdp-contribution-change-in-delaware-county-2001-2024">How does the industry GDP contribution change in Delaware County 2001-2024</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out Delaware county </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_delaware <span class="ot">&lt;-</span> df_clean <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(geo_name <span class="sc">==</span> <span class="st">"Delaware"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    df_clean <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(geo_name <span class="sc">==</span> <span class="st">"Delaware"</span>, line_code <span class="sc">==</span> <span class="st">"1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(time_period, <span class="at">total_gdp =</span> data_value),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"time_period"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> data_value <span class="sc">/</span> total_gdp) <span class="sc">|&gt;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(line_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">34</span>,<span class="dv">35</span>,<span class="dv">36</span>,<span class="dv">45</span>,<span class="dv">51</span>,<span class="dv">56</span>,<span class="dv">60</span>,<span class="dv">64</span>,<span class="dv">65</span>,<span class="dv">69</span>,<span class="dv">70</span>,<span class="dv">76</span>,<span class="dv">79</span>,<span class="dv">82</span>,<span class="dv">83</span>))<span class="sc">|&gt;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geo_name,line_code,time_period,description, share)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># AI-assisted</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate average share during 2001-2024, tag "other" label</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>industry_avg <span class="ot">&lt;-</span> df_delaware <span class="sc">|&gt;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(line_code, description) <span class="sc">|&gt;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_share =</span> <span class="fu">mean</span>(share), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># share &gt;= 0.05</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>major_industries <span class="ot">&lt;-</span> industry_avg <span class="sc">|&gt;</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(avg_share <span class="sc">&gt;=</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(description)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>df_delaware <span class="ot">&lt;-</span> df_delaware <span class="sc">|&gt;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description_grouped =</span> <span class="fu">if_else</span>(description <span class="sc">%in%</span> major_industries, description, <span class="st">"Other"</span>))</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>df_delaware_wide <span class="ot">&lt;-</span> df_delaware <span class="sc">|&gt;</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time_period, description_grouped) <span class="sc">|&gt;</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">share =</span> <span class="fu">sum</span>(share), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> description_grouped, <span class="at">values_from =</span> share)</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_delaware_wide, <span class="st">"../data/processed/delaware_industry_2001-2024.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<iframe title="Industry Composition of Delaware County's GDP (2001-2024)" aria-label="Area Chart" id="datawrapper-chart-9S1ZA" src="https://datawrapper.dwcdn.net/9S1ZA/1/" scrolling="no" frameborder="0" style="border: none;" width="650" height="624" data-external="1">
+</iframe>
+</section>
+<section id="lodes---commute-data" class="level2">
+<h2 class="anchored" data-anchor-id="lodes---commute-data">LODES - Commute data</h2>
+<iframe title="Delaware County Residents Work Places Changes, 2013-2023" aria-label="Symbol map" id="datawrapper-chart-cc2yA" src="https://datawrapper.dwcdn.net/cc2yA/1/" scrolling="no" frameborder="0" style="border: none;" width="640" height="529" data-external="1">
+</iframe>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About the data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>LEHD(<a href="https://lehd.ces.census.gov/">Longitudinal Employer-Household Dynamics</a>): exploring the interactions between workers and firms</li>
+<li>LODES(LEHD Origin-Destination Employment Statistics <a href="https://lehd.ces.census.gov/data/lodes/">Index of /data/lodes</a> )</li>
+<li>LODES Introduction pdf: https://lehd.ces.census.gov/data/lodes/LODES8/LODESTechDoc8.1.pdf</li>
+</ul>
+</div>
+</div>
+</div>
+<iframe title="Delaware County Residents' Work Destinations (absolute number), 2013 vs. 2023" aria-label="Grouped Bars" id="datawrapper-chart-XDBB0" src="https://datawrapper.dwcdn.net/XDBB0/1/" scrolling="no" frameborder="0" style="border: none;" width="650" height="785" data-external="1">
+</iframe>
+<iframe title="Delaware County Residents' Work Destinations (share change), 2013 vs. 2023" aria-label="Arrow Plot" id="datawrapper-chart-KG4Cv" src="https://datawrapper.dwcdn.net/KG4Cv/2/" scrolling="no" frameborder="0" style="border: none;" width="600" height="504" data-external="1">
+</iframe>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lodes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/raw/lodes_2013-2023.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(lodes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,662,218
+Columns: 4
+$ w_geocode &lt;dbl&gt; 420454003011002, 420454003021011, 420454004011017, 420454004…
+$ h_geocode &lt;dbl&gt; 420454003011000, 420454003011000, 420454003011000, 420454003…
+$ year      &lt;dbl&gt; 2002, 2002, 2002, 2002, 2002, 2002, 2002, 2002, 2002, 2002, …
+$ S000      &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lodes <span class="ot">&lt;-</span> lodes <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">w_county =</span> <span class="fu">str_sub</span>(w_geocode, <span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">h_county =</span> <span class="fu">str_sub</span>(h_geocode, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>lodes_county <span class="ot">&lt;-</span> lodes <span class="sc">|&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">workers =</span> <span class="fu">sum</span>(S000))</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Make line chart</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># AI-assisted</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lodes_county, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> workers)) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"People who both work and live in Delaware County, 2013-2023"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Workers"</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="explore_files/figure-html/people%20who%20both%20live%20and%20work%20in%20Delaware%20County-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>od_flow_change <span class="ot">&lt;-</span> od_flow_13 <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(w_county, county, state, <span class="at">workers_13 =</span> workers) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    od_flow_23 <span class="sc">|&gt;</span> <span class="fu">select</span>(w_county, <span class="at">workers_23 =</span> workers),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"w_county"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">change =</span> workers_23 <span class="sc">-</span> workers_13,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_change =</span> (workers_23 <span class="sc">-</span> workers_13) <span class="sc">/</span> workers_13 <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(change))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>od_flow_change_table <span class="ot">&lt;-</span> od_flow_change <span class="sc">|&gt;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(w_county, county, change, pct_change)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>od_flow_change_table <span class="sc">|&gt;</span> <span class="fu">print</span> (<span class="at">n =</span><span class="cn">Inf</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 66 × 4
+   w_county county                change pct_change
+   &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;      &lt;dbl&gt;
+ 1 42101    Philadelphia County     9083     15.4  
+ 2 42091    Montgomery County       5279     15.3  
+ 3 42029    Chester County          3307     14.6  
+ 4 42017    Bucks County            1077     22.7  
+ 5 42003    Allegheny County         493     42.3  
+ 6 42077    Lehigh County            392     29.8  
+ 7 42095    Northampton County       332     45.4  
+ 8 42011    Berks County             321     24.8  
+ 9 42071    Lancaster County         251     19.7  
+10 42133    York County              237     30.5  
+11 42079    Luzerne County           222     41.7  
+12 42043    Dauphin County           209     16.6  
+13 42075    Lebanon County            84     49.7  
+14 42019    Butler County             69    138    
+15 42107    Schuylkill County         48     24.6  
+16 42055    Franklin County           48     43.2  
+17 42089    Monroe County             35     13.1  
+18 42013    Blair County              28     30.1  
+19 42049    Erie County               26     32.9  
+20 42021    Cambria County            26     44.8  
+21 42069    Lackawanna County         25      6.23 
+22 42109    Snyder County             25     62.5  
+23 42093    Montour County            25     75.8  
+24 42125    Washington County         22     27.8  
+25 42119    Union County              22     88    
+26 42027    Centre County             14      4.95 
+27 42025    Carbon County             14     38.9  
+28 42039    Crawford County           11    220    
+29 42015    Bradford County            9     42.9  
+30 42005    Armstrong County           9    112.   
+31 42047    Elk County                 9    180    
+32 42087    Mifflin County             8     50    
+33 42127    Wayne County               7     16.7  
+34 42061    Huntingdon County          6     30    
+35 42065    Jefferson County           6    100    
+36 42001    Adams County               5      7.58 
+37 42057    Fulton County              5    500    
+38 42131    Wyoming County             4     50    
+39 42085    Mercer County              3      8.11 
+40 42063    Indiana County             3     10    
+41 42035    Clinton County             3     13.6  
+42 42009    Bedford County             3     25    
+43 42117    Tioga County               3     33.3  
+44 42121    Venango County             1     11.1  
+45 42067    Juniata County             1     20    
+46 42097    Northumberland County      0      0    
+47 42113    Sullivan County            0      0    
+48 42023    Cameron County             0      0    
+49 42123    Warren County              0      0    
+50 42007    Beaver County             -1     -2.13 
+51 42051    Fayette County            -1     -4.55 
+52 42083    McKean County             -1    -16.7  
+53 42103    Pike County               -2     -7.14 
+54 42073    Lawrence County           -2    -11.8  
+55 42031    Clarion County            -3    -30    
+56 42105    Potter County             -4    -80    
+57 42041    Cumberland County         -6     -0.759
+58 42115    Susquehanna County        -6    -40    
+59 42059    Greene County             -6    -66.7  
+60 42111    Somerset County          -10    -35.7  
+61 42037    Columbia County          -11    -11.2  
+62 42033    Clearfield County        -11    -26.8  
+63 42099    Perry County             -15    -60    
+64 42081    Lycoming County          -34    -22.2  
+65 42129    Westmoreland County      -42    -28.8  
+66 42045    Delaware County        -5580     -5.44 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(od_flow_change_table, <span class="st">"../data/processed/od_flow_change.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a> del_all <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/raw/lodes_del_any_23_13.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(del_all)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 511,203
+Columns: 13
+$ w_geocode &lt;dbl&gt; 100030016001007, 100030028002041, 100030104002018, 100030110…
+$ h_geocode &lt;dbl&gt; 420454003011000, 420454003011000, 420454003011000, 420454003…
+$ year      &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, …
+$ s000      &lt;int&gt; 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ sa01      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, …
+$ sa02      &lt;int&gt; 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, …
+$ sa03      &lt;int&gt; 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, …
+$ se01      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ se02      &lt;int&gt; 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, …
+$ se03      &lt;int&gt; 1, 0, 1, 1, 2, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, …
+$ si01      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, …
+$ si02      &lt;int&gt; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, …
+$ si03      &lt;int&gt; 1, 1, 1, 0, 2, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, …</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># unique(del_all$year)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># unique(del_all$h_geocode) </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean data</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>del_all_flow <span class="ot">&lt;-</span> del_all <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">h_county =</span> <span class="fu">str_sub</span>(h_geocode, <span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">w_county =</span> <span class="fu">str_sub</span>(w_geocode, <span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, w_county) <span class="sc">|&gt;</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">workers =</span> <span class="fu">sum</span>(s000), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(fips_lookup, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"w_county"</span> <span class="ot">=</span> <span class="st">"fips"</span>)) </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate change and percantage change number</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>del_all_flow_wide <span class="ot">&lt;-</span> del_all_flow <span class="sc">|&gt;</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">2023</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> workers, <span class="at">names_prefix =</span> <span class="st">"workers_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">change =</span> workers_2023 <span class="sc">-</span> workers_2013,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_change =</span> (workers_2023 <span class="sc">-</span> workers_2013) <span class="sc">/</span> workers_2013 <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(change))</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>del_all_flow <span class="sc">|&gt;</span> </span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="at">n =</span><span class="cn">Inf</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,252 × 5
+      year w_county workers county                 state
+     &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;
+   1  2013 10001        287 Kent County            DE   
+   2  2013 10003      11087 New Castle County      DE   
+   3  2013 10005        182 Sussex County          DE   
+   4  2013 10450          1 &lt;NA&gt;                   &lt;NA&gt; 
+   5  2013 10730          5 &lt;NA&gt;                   &lt;NA&gt; 
+   6  2013 10970          1 &lt;NA&gt;                   &lt;NA&gt; 
+   7  2013 11001        277 District of Columbia   DC   
+   8  2013 11010          2 &lt;NA&gt;                   &lt;NA&gt; 
+   9  2013 11091          2 &lt;NA&gt;                   &lt;NA&gt; 
+  10  2013 11250          2 &lt;NA&gt;                   &lt;NA&gt; 
+  11  2013 12011          6 Broward County         FL   
+  12  2013 12017          1 Citrus County          FL   
+  13  2013 12021          2 Collier County         FL   
+  14  2013 12031          1 Duval County           FL   
+  15  2013 12033          2 Escambia County        FL   
+  16  2013 12055          1 Highlands County       FL   
+  17  2013 12057          2 Hillsborough County    FL   
+  18  2013 12061          1 Indian River County    FL   
+  19  2013 12079          1 Madison County         FL   
+  20  2013 12081          2 Manatee County         FL   
+  21  2013 12086          8 Miami-Dade County      FL   
+  22  2013 12095          3 Orange County          FL   
+  23  2013 12099          2 Palm Beach County      FL   
+  24  2013 12103          8 Pinellas County        FL   
+  25  2013 12109          3 St. Johns County       FL   
+  26  2013 12131          1 Walton County          FL   
+  27  2013 13015          1 Bartow County          GA   
+  28  2013 13067          2 Cobb County            GA   
+  29  2013 13089          1 DeKalb County          GA   
+  30  2013 13121          5 Fulton County          GA   
+  31  2013 13127          1 Glynn County           GA   
+  32  2013 13135          1 Gwinnett County        GA   
+  33  2013 13187          2 Lumpkin County         GA   
+  34  2013 13313          2 Whitfield County       GA   
+  35  2013 15003          1 Honolulu County        HI   
+  36  2013 16001          3 Ada County             ID   
+  37  2013 16005          2 Bannock County         ID   
+  38  2013 16011          3 Bingham County         ID   
+  39  2013 16019          1 Bonneville County      ID   
+  40  2013 16035          1 Clearwater County      ID   
+  41  2013 16043          1 Fremont County         ID   
+  42  2013 16085          2 Valley County          ID   
+  43  2013 17007          1 Boone County           IL   
+  44  2013 17031         14 Cook County            IL   
+  45  2013 17033          1 Crawford County        IL   
+  46  2013 17035          1 Cumberland County      IL   
+  47  2013 17089          3 Kane County            IL   
+  48  2013 17099          1 LaSalle County         IL   
+  49  2013 17163          1 St. Clair County       IL   
+  50  2013 17167          2 Sangamon County        IL   
+  51  2013 17197          3 Will County            IL   
+  52  2013 17201          2 Winnebago County       IL   
+  53  2013 18003          2 Allen County           IN   
+  54  2013 18011          1 Boone County           IN   
+  55  2013 18033          1 DeKalb County          IN   
+  56  2013 18037          1 Dubois County          IN   
+  57  2013 18093          2 Lawrence County        IN   
+  58  2013 18127          2 Porter County          IN   
+  59  2013 18169          1 Wabash County          IN   
+  60  2013 18177          2 Wayne County           IN   
+  61  2013 19093          2 Ida County             IA   
+  62  2013 19097          1 Jackson County         IA   
+  63  2013 19113          9 Linn County            IA   
+  64  2013 19171          1 Tama County            IA   
+  65  2013 19191          1 Winneshiek County      IA   
+  66  2013 20031          1 Coffey County          KS   
+  67  2013 20045          3 Douglas County         KS   
+  68  2013 20113          1 McPherson County       KS   
+  69  2013 20169          1 Saline County          KS   
+  70  2013 20200          1 &lt;NA&gt;                   &lt;NA&gt; 
+  71  2013 20900          2 &lt;NA&gt;                   &lt;NA&gt; 
+  72  2013 21017          1 Bourbon County         KY   
+  73  2013 21025          1 Breathitt County       KY   
+  74  2013 21029          2 Bullitt County         KY   
+  75  2013 21067          2 Fayette County         KY   
+  76  2013 21117          3 Kenton County          KY   
+  77  2013 21153          1 Magoffin County        KY   
+  78  2013 21161          1 Mason County           KY   
+  79  2013 21193          1 Perry County           KY   
+  80  2013 21220          1 &lt;NA&gt;                   &lt;NA&gt; 
+  81  2013 21231          1 Wayne County           KY   
+  82  2013 22017          1 Caddo Parish           LA   
+  83  2013 22019          4 Calcasieu Parish       LA   
+  84  2013 22031          1 De Soto Parish         LA   
+  85  2013 22061          1 Lincoln Parish         LA   
+  86  2013 22093          1 St. James Parish       LA   
+  87  2013 22127          1 Winn Parish            LA   
+  88  2013 23003          2 Aroostook County       ME   
+  89  2013 23007          1 Franklin County        ME   
+  90  2013 23011          1 Kennebec County        ME   
+  91  2013 23013          1 Knox County            ME   
+  92  2013 23031          2 York County            ME   
+  93  2013 24001          4 Allegany County        MD   
+  94  2013 24003         90 Anne Arundel County    MD   
+  95  2013 24005        152 Baltimore County       MD   
+  96  2013 24009          3 Calvert County         MD   
+  97  2013 24011          3 Caroline County        MD   
+  98  2013 24013         19 Carroll County         MD   
+  99  2013 24015        153 Cecil County           MD   
+ 100  2013 24017          3 Charles County         MD   
+ 101  2013 24019          2 Dorchester County      MD   
+ 102  2013 24021         16 Frederick County       MD   
+ 103  2013 24023          1 Garrett County         MD   
+ 104  2013 24025         50 Harford County         MD   
+ 105  2013 24027         40 Howard County          MD   
+ 106  2013 24029         11 Kent County            MD   
+ 107  2013 24031        162 Montgomery County      MD   
+ 108  2013 24033         94 Prince George's County MD   
+ 109  2013 24035          1 Queen Anne's County    MD   
+ 110  2013 24037          8 St. Mary's County      MD   
+ 111  2013 24041          5 Talbot County          MD   
+ 112  2013 24043          5 Washington County      MD   
+ 113  2013 24045          9 Wicomico County        MD   
+ 114  2013 24047         15 Worcester County       MD   
+ 115  2013 24510        190 Baltimore city         MD   
+ 116  2013 25001          6 Barnstable County      MA   
+ 117  2013 25003          5 Berkshire County       MA   
+ 118  2013 25005          6 Bristol County         MA   
+ 119  2013 25009         17 Essex County           MA   
+ 120  2013 25013          4 Hampden County         MA   
+ 121  2013 25015          2 Hampshire County       MA   
+ 122  2013 25017         22 Middlesex County       MA   
+ 123  2013 25019          3 Nantucket County       MA   
+ 124  2013 25021          8 Norfolk County         MA   
+ 125  2013 25023          1 Plymouth County        MA   
+ 126  2013 25025         26 Suffolk County         MA   
+ 127  2013 25027         13 Worcester County       MA   
+ 128  2013 26021          2 Berrien County         MI   
+ 129  2013 26045          1 Eaton County           MI   
+ 130  2013 26049          1 Genesee County         MI   
+ 131  2013 26061          2 Houghton County        MI   
+ 132  2013 26063          1 Huron County           MI   
+ 133  2013 26065          1 Ingham County          MI   
+ 134  2013 26075          1 Jackson County         MI   
+ 135  2013 26091          1 Lenawee County         MI   
+ 136  2013 26099          1 Macomb County          MI   
+ 137  2013 26115          1 Monroe County          MI   
+ 138  2013 26125          9 Oakland County         MI   
+ 139  2013 26157          1 Tuscola County         MI   
+ 140  2013 26161          8 Washtenaw County       MI   
+ 141  2013 26163         16 Wayne County           MI   
+ 142  2013 27053          6 Hennepin County        MN   
+ 143  2013 27091          1 Martin County          MN   
+ 144  2013 27109          4 Olmsted County         MN   
+ 145  2013 27119          2 Polk County            MN   
+ 146  2013 27123          3 Ramsey County          MN   
+ 147  2013 27147          2 Steele County          MN   
+ 148  2013 27169          1 Winona County          MN   
+ 149  2013 28047          1 Harrison County        MS   
+ 150  2013 28053          3 Humphreys County       MS   
+ 151  2013 28101          2 Newton County          MS   
+ 152  2013 28105          3 Oktibbeha County       MS   
+ 153  2013 28131          2 Stone County           MS   
+ 154  2013 28151          1 Washington County      MS   
+ 155  2013 29027          1 Callaway County        MO   
+ 156  2013 29051          1 Cole County            MO   
+ 157  2013 29055          1 Crawford County        MO   
+ 158  2013 29061          1 Daviess County         MO   
+ 159  2013 29071          1 Franklin County        MO   
+ 160  2013 29095          2 Jackson County         MO   
+ 161  2013 29107          1 Lafayette County       MO   
+ 162  2013 29189          6 St. Louis County       MO   
+ 163  2013 29221          1 Washington County      MO   
+ 164  2013 29510          4 St. Louis city         MO   
+ 165  2013 30013          2 Cascade County         MT   
+ 166  2013 30031          1 Gallatin County        MT   
+ 167  2013 31001          1 Adams County           NE   
+ 168  2013 31003          2 Antelope County        NE   
+ 169  2013 31095          2 Jefferson County       NE   
+ 170  2013 31109          1 Lancaster County       NE   
+ 171  2013 31111          2 Lincoln County         NE   
+ 172  2013 31119          2 Madison County         NE   
+ 173  2013 31137          1 Phelps County          NE   
+ 174  2013 31147          1 Richardson County      NE   
+ 175  2013 31153         15 Sarpy County           NE   
+ 176  2013 32003          2 Clark County           NV   
+ 177  2013 32033          1 White Pine County      NV   
+ 178  2013 33003          1 Carroll County         NH   
+ 179  2013 33009          3 Grafton County         NH   
+ 180  2013 33011          1 Hillsborough County    NH   
+ 181  2013 33015          4 Rockingham County      NH   
+ 182  2013 33017          4 Strafford County       NH   
+ 183  2013 33019          1 Sullivan County        NH   
+ 184  2013 34001        224 Atlantic County        NJ   
+ 185  2013 34003        238 Bergen County          NJ   
+ 186  2013 34005       1249 Burlington County      NJ   
+ 187  2013 34007       2436 Camden County          NJ   
+ 188  2013 34009        107 Cape May County        NJ   
+ 189  2013 34011        179 Cumberland County      NJ   
+ 190  2013 34013        196 Essex County           NJ   
+ 191  2013 34015       2120 Gloucester County      NJ   
+ 192  2013 34017        138 Hudson County          NJ   
+ 193  2013 34019         50 Hunterdon County       NJ   
+ 194  2013 34021        543 Mercer County          NJ   
+ 195  2013 34023        430 Middlesex County       NJ   
+ 196  2013 34025        201 Monmouth County        NJ   
+ 197  2013 34027        232 Morris County          NJ   
+ 198  2013 34029        120 Ocean County           NJ   
+ 199  2013 34031        110 Passaic County         NJ   
+ 200  2013 34033        375 Salem County           NJ   
+ 201  2013 34035        185 Somerset County        NJ   
+ 202  2013 34037         26 Sussex County          NJ   
+ 203  2013 34039        180 Union County           NJ   
+ 204  2013 34041         25 Warren County          NJ   
+ 205  2013 35001          1 Bernalillo County      NM   
+ 206  2013 35006          1 Cibola County          NM   
+ 207  2013 35009          3 Curry County           NM   
+ 208  2013 35013          1 Dona Ana County        NM   
+ 209  2013 35023          1 Hidalgo County         NM   
+ 210  2013 35025          4 Lea County             NM   
+ 211  2013 36001          3 Albany County          NY   
+ 212  2013 36005         29 Bronx County           NY   
+ 213  2013 36007         18 Broome County          NY   
+ 214  2013 36009          4 Cattaraugus County     NY   
+ 215  2013 36013          1 Chautauqua County      NY   
+ 216  2013 36015          3 Chemung County         NY   
+ 217  2013 36017          2 Chenango County        NY   
+ 218  2013 36019          1 Clinton County         NY   
+ 219  2013 36021          3 Columbia County        NY   
+ 220  2013 36025          1 Delaware County        NY   
+ 221  2013 36027         11 Dutchess County        NY   
+ 222  2013 36029         10 Erie County            NY   
+ 223  2013 36033          1 Franklin County        NY   
+ 224  2013 36039          1 Greene County          NY   
+ 225  2013 36043          3 Herkimer County        NY   
+ 226  2013 36045          2 Jefferson County       NY   
+ 227  2013 36047        159 Kings County           NY   
+ 228  2013 36055          7 Monroe County          NY   
+ 229  2013 36059        105 Nassau County          NY   
+ 230  2013 36061        954 New York County        NY   
+ 231  2013 36063          2 Niagara County         NY   
+ 232  2013 36067          7 Onondaga County        NY   
+ 233  2013 36071         38 Orange County          NY   
+ 234  2013 36077          4 Otsego County          NY   
+ 235  2013 36079          1 Putnam County          NY   
+ 236  2013 36081        145 Queens County          NY   
+ 237  2013 36083          4 Rensselaer County      NY   
+ 238  2013 36085         42 Richmond County        NY   
+ 239  2013 36087         15 Rockland County        NY   
+ 240  2013 36089          9 St. Lawrence County    NY   
+ 241  2013 36091          3 Saratoga County        NY   
+ 242  2013 36095          3 Schoharie County       NY   
+ 243  2013 36101          4 Steuben County         NY   
+ 244  2013 36103        114 Suffolk County         NY   
+ 245  2013 36105          2 Sullivan County        NY   
+ 246  2013 36107          2 Tioga County           NY   
+ 247  2013 36109         27 Tompkins County        NY   
+ 248  2013 36111         10 Ulster County          NY   
+ 249  2013 36117          5 Wayne County           NY   
+ 250  2013 36119         62 Westchester County     NY   
+ 251  2013 37001          4 Alamance County        NC   
+ 252  2013 37013          1 Beaufort County        NC   
+ 253  2013 37017          1 Bladen County          NC   
+ 254  2013 37019          3 Brunswick County       NC   
+ 255  2013 37021          1 Buncombe County        NC   
+ 256  2013 37025          5 Cabarrus County        NC   
+ 257  2013 37027          2 Caldwell County        NC   
+ 258  2013 37035          1 Catawba County         NC   
+ 259  2013 37037          1 Chatham County         NC   
+ 260  2013 37049          1 Craven County          NC   
+ 261  2013 37051          3 Cumberland County      NC   
+ 262  2013 37055          2 Dare County            NC   
+ 263  2013 37057          1 Davidson County        NC   
+ 264  2013 37063         18 Durham County          NC   
+ 265  2013 37067         10 Forsyth County         NC   
+ 266  2013 37071          1 Gaston County          NC   
+ 267  2013 37081         14 Guilford County        NC   
+ 268  2013 37083          1 Halifax County         NC   
+ 269  2013 37085          4 Harnett County         NC   
+ 270  2013 37097          1 Iredell County         NC   
+ 271  2013 37101          3 Johnston County        NC   
+ 272  2013 37109          1 Lincoln County         NC   
+ 273  2013 37119         25 Mecklenburg County     NC   
+ 274  2013 37123          2 Montgomery County      NC   
+ 275  2013 37129          6 New Hanover County     NC   
+ 276  2013 37133          3 Onslow County          NC   
+ 277  2013 37135          2 Orange County          NC   
+ 278  2013 37139          2 Pasquotank County      NC   
+ 279  2013 37145          2 Person County          NC   
+ 280  2013 37147          6 Pitt County            NC   
+ 281  2013 37159          1 Rowan County           NC   
+ 282  2013 37161          3 Rutherford County      NC   
+ 283  2013 37165          1 Scotland County        NC   
+ 284  2013 37179          5 Union County           NC   
+ 285  2013 37181          1 Vance County           NC   
+ 286  2013 37183         15 Wake County            NC   
+ 287  2013 37191          2 Wayne County           NC   
+ 288  2013 37193          1 Wilkes County          NC   
+ 289  2013 37195          2 Wilson County          NC   
+ 290  2013 38017          2 Cass County            ND   
+ 291  2013 38071          1 Ramsey County          ND   
+ 292  2013 39013          1 Belmont County         OH   
+ 293  2013 39017          2 Butler County          OH   
+ 294  2013 39025          1 Clermont County        OH   
+ 295  2013 39029          2 Columbiana County      OH   
+ 296  2013 39031          4 Coshocton County       OH   
+ 297  2013 39033          1 Crawford County        OH   
+ 298  2013 39035          7 Cuyahoga County        OH   
+ 299  2013 39041          5 Delaware County        OH   
+ 300  2013 39043          1 Erie County            OH   
+ 301  2013 39045          1 Fairfield County       OH   
+ 302  2013 39047          3 Fayette County         OH   
+ 303  2013 39049         17 Franklin County        OH   
+ 304  2013 39061          5 Hamilton County        OH   
+ 305  2013 39063          3 Hancock County         OH   
+ 306  2013 39091          3 Logan County           OH   
+ 307  2013 39093          1 Lorain County          OH   
+ 308  2013 39095          5 Lucas County           OH   
+ 309  2013 39099          2 Mahoning County        OH   
+ 310  2013 39103          1 Medina County          OH   
+ 311  2013 39109          1 Miami County           OH   
+ 312  2013 39113          1 Montgomery County      OH   
+ 313  2013 39119          1 Muskingum County       OH   
+ 314  2013 39137          1 Putnam County          OH   
+ 315  2013 39139          1 Richland County        OH   
+ 316  2013 39141          1 Ross County            OH   
+ 317  2013 39149          1 Shelby County          OH   
+ 318  2013 39151          6 Stark County           OH   
+ 319  2013 39153          4 Summit County          OH   
+ 320  2013 39155          2 Trumbull County        OH   
+ 321  2013 39165          1 Warren County          OH   
+ 322  2013 39169          2 Wayne County           OH   
+ 323  2013 39173          1 Wood County            OH   
+ 324  2013 40027          1 Cleveland County       OK   
+ 325  2013 40031          1 Comanche County        OK   
+ 326  2013 40050          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 327  2013 40089          1 McCurtain County       OK   
+ 328  2013 40109          1 Oklahoma County        OK   
+ 329  2013 40111          1 Okmulgee County        OK   
+ 330  2013 40123          1 Pontotoc County        OK   
+ 331  2013 40130          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 332  2013 40131          5 Rogers County          OK   
+ 333  2013 40132          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 334  2013 40133          1 Seminole County        OK   
+ 335  2013 40135          1 Sequoyah County        OK   
+ 336  2013 40143          1 Tulsa County           OK   
+ 337  2013 40190          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 338  2013 40250          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 339  2013 41005          2 Clackamas County       OR   
+ 340  2013 41009          1 Columbia County        OR   
+ 341  2013 41039          2 Lane County            OR   
+ 342  2013 41041          1 Lincoln County         OR   
+ 343  2013 41047          1 Marion County          OR   
+ 344  2013 41051          1 Multnomah County       OR   
+ 345  2013 42001         66 Adams County           PA   
+ 346  2013 42003       1166 Allegheny County       PA   
+ 347  2013 42005          8 Armstrong County       PA   
+ 348  2013 42007         47 Beaver County          PA   
+ 349  2013 42009         12 Bedford County         PA   
+ 350  2013 42011       1293 Berks County           PA   
+ 351  2013 42013         93 Blair County           PA   
+ 352  2013 42015         21 Bradford County        PA   
+ 353  2013 42017       4748 Bucks County           PA   
+ 354  2013 42019         50 Butler County          PA   
+ 355  2013 42021         58 Cambria County         PA   
+ 356  2013 42023          2 Cameron County         PA   
+ 357  2013 42025         36 Carbon County          PA   
+ 358  2013 42027        283 Centre County          PA   
+ 359  2013 42029      22666 Chester County         PA   
+ 360  2013 42031         10 Clarion County         PA   
+ 361  2013 42033         41 Clearfield County      PA   
+ 362  2013 42035         22 Clinton County         PA   
+ 363  2013 42037         98 Columbia County        PA   
+ 364  2013 42039          5 Crawford County        PA   
+ 365  2013 42041        791 Cumberland County      PA   
+ 366  2013 42043       1258 Dauphin County         PA   
+ 367  2013 42045     102545 Delaware County        PA   
+ 368  2013 42047          5 Elk County             PA   
+ 369  2013 42049         79 Erie County            PA   
+ 370  2013 42051         22 Fayette County         PA   
+ 371  2013 42055        111 Franklin County        PA   
+ 372  2013 42057          1 Fulton County          PA   
+ 373  2013 42059          9 Greene County          PA   
+ 374  2013 42061         20 Huntingdon County      PA   
+ 375  2013 42063         30 Indiana County         PA   
+ 376  2013 42065          6 Jefferson County       PA   
+ 377  2013 42067          5 Juniata County         PA   
+ 378  2013 42069        401 Lackawanna County      PA   
+ 379  2013 42071       1274 Lancaster County       PA   
+ 380  2013 42073         17 Lawrence County        PA   
+ 381  2013 42075        169 Lebanon County         PA   
+ 382  2013 42077       1315 Lehigh County          PA   
+ 383  2013 42079        532 Luzerne County         PA   
+ 384  2013 42081        153 Lycoming County        PA   
+ 385  2013 42083          6 McKean County          PA   
+ 386  2013 42085         37 Mercer County          PA   
+ 387  2013 42087         16 Mifflin County         PA   
+ 388  2013 42089        268 Monroe County          PA   
+ 389  2013 42091      34456 Montgomery County      PA   
+ 390  2013 42093         33 Montour County         PA   
+ 391  2013 42095        731 Northampton County     PA   
+ 392  2013 42097         78 Northumberland County  PA   
+ 393  2013 42099         25 Perry County           PA   
+ 394  2013 42101      58985 Philadelphia County    PA   
+ 395  2013 42103         28 Pike County            PA   
+ 396  2013 42105          5 Potter County          PA   
+ 397  2013 42107        195 Schuylkill County      PA   
+ 398  2013 42109         40 Snyder County          PA   
+ 399  2013 42111         28 Somerset County        PA   
+ 400  2013 42113          4 Sullivan County        PA   
+ 401  2013 42115         15 Susquehanna County     PA   
+ 402  2013 42117          9 Tioga County           PA   
+ 403  2013 42119         25 Union County           PA   
+ 404  2013 42121          9 Venango County         PA   
+ 405  2013 42123          2 Warren County          PA   
+ 406  2013 42125         79 Washington County      PA   
+ 407  2013 42127         42 Wayne County           PA   
+ 408  2013 42129        146 Westmoreland County    PA   
+ 409  2013 42131          8 Wyoming County         PA   
+ 410  2013 42133        778 York County            PA   
+ 411  2013 44003          8 Kent County            RI   
+ 412  2013 44005          7 Newport County         RI   
+ 413  2013 44007         15 Providence County      RI   
+ 414  2013 44009          1 Washington County      RI   
+ 415  2013 45015          1 Berkeley County        SC   
+ 416  2013 45019          1 Charleston County      SC   
+ 417  2013 45021          4 Cherokee County        SC   
+ 418  2013 45023          1 Chester County         SC   
+ 419  2013 45041          4 Florence County        SC   
+ 420  2013 45045          4 Greenville County      SC   
+ 421  2013 45051          4 Horry County           SC   
+ 422  2013 45083          1 Spartanburg County     SC   
+ 423  2013 45085          2 Sumter County          SC   
+ 424  2013 45089          1 Williamsburg County    SC   
+ 425  2013 46051          1 Grant County           SD   
+ 426  2013 47037          1 Davidson County        TN   
+ 427  2013 47079          3 Henry County           TN   
+ 428  2013 47091          1 Johnson County         TN   
+ 429  2013 47113          1 Madison County         TN   
+ 430  2013 47141          1 Putnam County          TN   
+ 431  2013 47157          1 Shelby County          TN   
+ 432  2013 47163         12 Sullivan County        TN   
+ 433  2013 47177          1 Warren County          TN   
+ 434  2013 48017          1 Bailey County          TX   
+ 435  2013 48027          2 Bell County            TX   
+ 436  2013 48029          6 Bexar County           TX   
+ 437  2013 48041          2 Brazos County          TX   
+ 438  2013 48043          4 Brewster County        TX   
+ 439  2013 48055          1 Caldwell County        TX   
+ 440  2013 48061          2 Cameron County         TX   
+ 441  2013 48113          5 Dallas County          TX   
+ 442  2013 48135          6 Ector County           TX   
+ 443  2013 48141          4 El Paso County         TX   
+ 444  2013 48185          1 Grimes County          TX   
+ 445  2013 48187          1 Guadalupe County       TX   
+ 446  2013 48201         30 Harris County          TX   
+ 447  2013 48215          2 Hidalgo County         TX   
+ 448  2013 48241          1 Jasper County          TX   
+ 449  2013 48303          1 Lubbock County         TX   
+ 450  2013 48349          1 Navarro County         TX   
+ 451  2013 48355          1 Nueces County          TX   
+ 452  2013 48363          1 Palo Pinto County      TX   
+ 453  2013 48373          2 Polk County            TX   
+ 454  2013 48423          2 Smith County           TX   
+ 455  2013 48439          5 Tarrant County         TX   
+ 456  2013 48441          1 Taylor County          TX   
+ 457  2013 48473          2 Waller County          TX   
+ 458  2013 48481          1 Wharton County         TX   
+ 459  2013 48491          1 Williamson County      TX   
+ 460  2013 49005          3 Cache County           UT   
+ 461  2013 49011          3 Davis County           UT   
+ 462  2013 49035          1 Salt Lake County       UT   
+ 463  2013 50007         13 Chittenden County      VT   
+ 464  2013 50011          7 Franklin County        VT   
+ 465  2013 50023          1 Washington County      VT   
+ 466  2013 50070          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 467  2013 50310          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 468  2013 50350          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 469  2013 50379          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 470  2013 50450          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 471  2013 50774          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 472  2013 50910          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 473  2013 51001          2 Accomack County        VA   
+ 474  2013 51013         51 Arlington County       VA   
+ 475  2013 51019          1 Bedford County         VA   
+ 476  2013 51033          1 Caroline County        VA   
+ 477  2013 51041          6 Chesterfield County    VA   
+ 478  2013 51047          2 Culpeper County        VA   
+ 479  2013 51053          1 Dinwiddie County       VA   
+ 480  2013 51059        145 Fairfax County         VA   
+ 481  2013 51061          3 Fauquier County        VA   
+ 482  2013 51069          2 Frederick County       VA   
+ 483  2013 51085          2 Hanover County         VA   
+ 484  2013 51087         22 Henrico County         VA   
+ 485  2013 51089          1 Henry County           VA   
+ 486  2013 51095          4 James City County      VA   
+ 487  2013 51103          1 Lancaster County       VA   
+ 488  2013 51107         46 Loudoun County         VA   
+ 489  2013 51113          1 Madison County         VA   
+ 490  2013 51115          1 Mathews County         VA   
+ 491  2013 51121          1 Montgomery County      VA   
+ 492  2013 51127          2 New Kent County        VA   
+ 493  2013 51131          1 Northampton County     VA   
+ 494  2013 51141          2 Patrick County         VA   
+ 495  2013 51153         16 Prince William County  VA   
+ 496  2013 51165          1 Rockingham County      VA   
+ 497  2013 51171          1 Shenandoah County      VA   
+ 498  2013 51177          2 Spotsylvania County    VA   
+ 499  2013 51179          2 Stafford County        VA   
+ 500  2013 51187          1 Warren County          VA   
+ 501  2013 51191          3 Washington County      VA   
+ 502  2013 51199          4 York County            VA   
+ 503  2013 51510         29 Alexandria city        VA   
+ 504  2013 51540          1 Charlottesville city   VA   
+ 505  2013 51550          3 Chesapeake city        VA   
+ 506  2013 51580          1 Covington city         VA   
+ 507  2013 51590          1 Danville city          VA   
+ 508  2013 51630          2 Fredericksburg city    VA   
+ 509  2013 51650          1 Hampton city           VA   
+ 510  2013 51660          6 Harrisonburg city      VA   
+ 511  2013 51680          4 Lynchburg city         VA   
+ 512  2013 51683          1 Manassas city          VA   
+ 513  2013 51690          1 Martinsville city      VA   
+ 514  2013 51700          7 Newport News city      VA   
+ 515  2013 51710          5 Norfolk city           VA   
+ 516  2013 51740          1 Portsmouth city        VA   
+ 517  2013 51760         19 Richmond city          VA   
+ 518  2013 51810          4 Virginia Beach city    VA   
+ 519  2013 51840          5 Winchester city        VA   
+ 520  2013 53005          1 Benton County          WA   
+ 521  2013 53017          1 Douglas County         WA   
+ 522  2013 53033          2 King County            WA   
+ 523  2013 53041          1 Lewis County           WA   
+ 524  2013 53057          1 Skagit County          WA   
+ 525  2013 53061          2 Snohomish County       WA   
+ 526  2013 53063          2 Spokane County         WA   
+ 527  2013 53067          4 Thurston County        WA   
+ 528  2013 53073          1 Whatcom County         WA   
+ 529  2013 53077          1 Yakima County          WA   
+ 530  2013 54003          5 Berkeley County        WV   
+ 531  2013 54011          3 Cabell County          WV   
+ 532  2013 54031          4 Hardy County           WV   
+ 533  2013 54037          1 Jefferson County       WV   
+ 534  2013 54039          5 Kanawha County         WV   
+ 535  2013 54049          1 Marion County          WV   
+ 536  2013 54061          4 Monongalia County      WV   
+ 537  2013 54069          6 Ohio County            WV   
+ 538  2013 54079          1 Putnam County          WV   
+ 539  2013 54091          1 Taylor County          WV   
+ 540  2013 55025          2 Dane County            WI   
+ 541  2013 55073          1 Marathon County        WI   
+ 542  2013 55078          1 Menominee County       WI   
+ 543  2013 55079          3 Milwaukee County       WI   
+ 544  2013 55087          2 Outagamie County       WI   
+ 545  2013 55123          1 Vernon County          WI   
+ 546  2013 55127          4 Walworth County        WI   
+ 547  2013 56021          1 Laramie County         WY   
+ 548  2013 56025          1 Natrona County         WY   
+ 549  2013 60014          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 550  2013 60070          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 551  2013 60090          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 552  2013 60110          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 553  2013 60133          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 554  2013 60190          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 555  2013 60250          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 556  2013 60290          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 557  2013 60372          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 558  2013 60374          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 559  2013 60375          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 560  2013 60376          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 561  2013 60379          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 562  2013 60390          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 563  2013 60470          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 564  2013 60590          9 &lt;NA&gt;                   &lt;NA&gt; 
+ 565  2013 60650          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 566  2013 60710          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 567  2013 60730          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 568  2013 60750          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 569  2013 60816          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 570  2013 60830          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 571  2013 60855          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 572  2013 60890          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 573  2013 60952          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 574  2013 60971          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 575  2013 61110          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 576  2013 61150          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 577  2013 80119          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 578  2013 80310          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 579  2013 80350          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 580  2013 80459          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 581  2013 80590          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 582  2013 80679          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 583  2013 80690          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 584  2013 80839          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 585  2013 81010          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 586  2013 81170          5 &lt;NA&gt;                   &lt;NA&gt; 
+ 587  2013 90010         69 &lt;NA&gt;                   &lt;NA&gt; 
+ 588  2013 90011          8 &lt;NA&gt;                   &lt;NA&gt; 
+ 589  2013 90012         11 &lt;NA&gt;                   &lt;NA&gt; 
+ 590  2013 90034         28 &lt;NA&gt;                   &lt;NA&gt; 
+ 591  2013 90035         19 &lt;NA&gt;                   &lt;NA&gt; 
+ 592  2013 90039          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 593  2013 90052          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 594  2013 90053          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 595  2013 90075          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 596  2013 90076          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 597  2013 90091         47 &lt;NA&gt;                   &lt;NA&gt; 
+ 598  2013 90093         11 &lt;NA&gt;                   &lt;NA&gt; 
+ 599  2013 90116          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 600  2013 90117          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 601  2013 90135          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 602  2013 90159          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 603  2023 10001        339 Kent County            DE   
+ 604  2023 10003      11780 New Castle County      DE   
+ 605  2023 10005        197 Sussex County          DE   
+ 606  2023 10690          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 607  2023 10730          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 608  2023 10810          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 609  2023 10830          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 610  2023 10950          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 611  2023 10970          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 612  2023 11001        230 District of Columbia   DC   
+ 613  2023 11170          4 &lt;NA&gt;                   &lt;NA&gt; 
+ 614  2023 12005          1 Bay County             FL   
+ 615  2023 12011          6 Broward County         FL   
+ 616  2023 12015          1 Charlotte County       FL   
+ 617  2023 12021          2 Collier County         FL   
+ 618  2023 12031          7 Duval County           FL   
+ 619  2023 12033          2 Escambia County        FL   
+ 620  2023 12053          1 Hernando County        FL   
+ 621  2023 12055          1 Highlands County       FL   
+ 622  2023 12057          2 Hillsborough County    FL   
+ 623  2023 12061          4 Indian River County    FL   
+ 624  2023 12079          1 Madison County         FL   
+ 625  2023 12085          3 Martin County          FL   
+ 626  2023 12086          3 Miami-Dade County      FL   
+ 627  2023 12087          1 Monroe County          FL   
+ 628  2023 12095          6 Orange County          FL   
+ 629  2023 12097          5 Osceola County         FL   
+ 630  2023 12099          2 Palm Beach County      FL   
+ 631  2023 12101          3 Pasco County           FL   
+ 632  2023 12103          5 Pinellas County        FL   
+ 633  2023 12105          1 Polk County            FL   
+ 634  2023 12109          3 St. Johns County       FL   
+ 635  2023 12115          1 Sarasota County        FL   
+ 636  2023 12127          2 Volusia County         FL   
+ 637  2023 13067          1 Cobb County            GA   
+ 638  2023 13089          1 DeKalb County          GA   
+ 639  2023 13121         13 Fulton County          GA   
+ 640  2023 13129          2 Gordon County          GA   
+ 641  2023 13135          6 Gwinnett County        GA   
+ 642  2023 13139          1 Hall County            GA   
+ 643  2023 13255          1 Spalding County        GA   
+ 644  2023 13261          1 Sumter County          GA   
+ 645  2023 13277          1 Tift County            GA   
+ 646  2023 15001         10 Hawaii County          HI   
+ 647  2023 15003          9 Honolulu County        HI   
+ 648  2023 15007          7 Kauai County           HI   
+ 649  2023 15009          2 Maui County            HI   
+ 650  2023 16001          2 Ada County             ID   
+ 651  2023 16053          1 Jerome County          ID   
+ 652  2023 16065          1 Madison County         ID   
+ 653  2023 16085          4 Valley County          ID   
+ 654  2023 17029          1 Coles County           IL   
+ 655  2023 17031          7 Cook County            IL   
+ 656  2023 17043          1 DuPage County          IL   
+ 657  2023 17053          1 Ford County            IL   
+ 658  2023 17091          1 Kankakee County        IL   
+ 659  2023 17097          2 Lake County            IL   
+ 660  2023 17099          1 LaSalle County         IL   
+ 661  2023 17113          1 McLean County          IL   
+ 662  2023 17177          2 Stephenson County      IL   
+ 663  2023 17197          1 Will County            IL   
+ 664  2023 17201          1 Winnebago County       IL   
+ 665  2023 18019          2 Clark County           IN   
+ 666  2023 18037          1 Dubois County          IN   
+ 667  2023 18039          1 Elkhart County         IN   
+ 668  2023 18053          1 Grant County           IN   
+ 669  2023 18057          1 Hamilton County        IN   
+ 670  2023 18089          1 Lake County            IN   
+ 671  2023 18095          1 Madison County         IN   
+ 672  2023 18097          6 Marion County          IN   
+ 673  2023 18099          2 Marshall County        IN   
+ 674  2023 18105          1 Monroe County          IN   
+ 675  2023 18109          1 Morgan County          IN   
+ 676  2023 18119          1 Owen County            IN   
+ 677  2023 18139          2 Rush County            IN   
+ 678  2023 19013          1 Black Hawk County      IA   
+ 679  2023 19153          1 Polk County            IA   
+ 680  2023 19189          1 Winnebago County       IA   
+ 681  2023 20025          1 Clark County           KS   
+ 682  2023 20047          1 Edwards County         KS   
+ 683  2023 20061          2 Geary County           KS   
+ 684  2023 20091          2 Johnson County         KS   
+ 685  2023 20125          1 Montgomery County      KS   
+ 686  2023 20161          1 Riley County           KS   
+ 687  2023 20187          1 Stanton County         KS   
+ 688  2023 21015          1 Boone County           KY   
+ 689  2023 21037          3 Campbell County        KY   
+ 690  2023 21065          1 Estill County          KY   
+ 691  2023 21071          1 Floyd County           KY   
+ 692  2023 21073          1 Franklin County        KY   
+ 693  2023 21089          1 Greenup County         KY   
+ 694  2023 21111          2 Jefferson County       KY   
+ 695  2023 21199          2 Pulaski County         KY   
+ 696  2023 21205          2 Rowan County           KY   
+ 697  2023 21217          2 Taylor County          KY   
+ 698  2023 21219          1 Todd County            KY   
+ 699  2023 21227          1 Warren County          KY   
+ 700  2023 22015          1 Bossier Parish         LA   
+ 701  2023 22017          1 Caddo Parish           LA   
+ 702  2023 22029          1 Concordia Parish       LA   
+ 703  2023 22057          1 Lafourche Parish       LA   
+ 704  2023 22071          4 Orleans Parish         LA   
+ 705  2023 22117          1 Washington Parish      LA   
+ 706  2023 23003          5 Aroostook County       ME   
+ 707  2023 23005          1 Cumberland County      ME   
+ 708  2023 23011          4 Kennebec County        ME   
+ 709  2023 23015          1 Lincoln County         ME   
+ 710  2023 23017          1 Oxford County          ME   
+ 711  2023 23019          2 Penobscot County       ME   
+ 712  2023 23023          1 Sagadahoc County       ME   
+ 713  2023 23025          1 Somerset County        ME   
+ 714  2023 23027          1 Waldo County           ME   
+ 715  2023 23031          1 York County            ME   
+ 716  2023 24001          6 Allegany County        MD   
+ 717  2023 24003        136 Anne Arundel County    MD   
+ 718  2023 24005        190 Baltimore County       MD   
+ 719  2023 24009          5 Calvert County         MD   
+ 720  2023 24011          6 Caroline County        MD   
+ 721  2023 24013         12 Carroll County         MD   
+ 722  2023 24015        150 Cecil County           MD   
+ 723  2023 24017          2 Charles County         MD   
+ 724  2023 24019          3 Dorchester County      MD   
+ 725  2023 24021         16 Frederick County       MD   
+ 726  2023 24025         65 Harford County         MD   
+ 727  2023 24027         61 Howard County          MD   
+ 728  2023 24029          4 Kent County            MD   
+ 729  2023 24031        190 Montgomery County      MD   
+ 730  2023 24033         62 Prince George's County MD   
+ 731  2023 24035          8 Queen Anne's County    MD   
+ 732  2023 24037          8 St. Mary's County      MD   
+ 733  2023 24039          1 Somerset County        MD   
+ 734  2023 24041          9 Talbot County          MD   
+ 735  2023 24043         13 Washington County      MD   
+ 736  2023 24045          9 Wicomico County        MD   
+ 737  2023 24047         14 Worcester County       MD   
+ 738  2023 24510        160 Baltimore city         MD   
+ 739  2023 25001          5 Barnstable County      MA   
+ 740  2023 25003          3 Berkshire County       MA   
+ 741  2023 25005          8 Bristol County         MA   
+ 742  2023 25009          9 Essex County           MA   
+ 743  2023 25013         10 Hampden County         MA   
+ 744  2023 25015         10 Hampshire County       MA   
+ 745  2023 25017         45 Middlesex County       MA   
+ 746  2023 25021          5 Norfolk County         MA   
+ 747  2023 25023          4 Plymouth County        MA   
+ 748  2023 25025         84 Suffolk County         MA   
+ 749  2023 25027         21 Worcester County       MA   
+ 750  2023 27009          1 Benton County          MN   
+ 751  2023 27013          1 Blue Earth County      MN   
+ 752  2023 27027          2 Clay County            MN   
+ 753  2023 27031          1 Cook County            MN   
+ 754  2023 27035          1 Crow Wing County       MN   
+ 755  2023 27053          3 Hennepin County        MN   
+ 756  2023 27071          1 Koochiching County     MN   
+ 757  2023 27083          1 Lyon County            MN   
+ 758  2023 27095          1 Mille Lacs County      MN   
+ 759  2023 27135          1 Roseau County          MN   
+ 760  2023 27147          2 Steele County          MN   
+ 761  2023 27159          1 Wadena County          MN   
+ 762  2023 28017          3 Chickasaw County       MS   
+ 763  2023 28049          4 Hinds County           MS   
+ 764  2023 28071          1 Lafayette County       MS   
+ 765  2023 28073          1 Lamar County           MS   
+ 766  2023 28105          1 Oktibbeha County       MS   
+ 767  2023 29077          7 Greene County          MO   
+ 768  2023 29083          1 Henry County           MO   
+ 769  2023 29099          2 Jefferson County       MO   
+ 770  2023 29171          2 Putnam County          MO   
+ 771  2023 29175          1 Randolph County        MO   
+ 772  2023 29219          1 Warren County          MO   
+ 773  2023 29225          2 Webster County         MO   
+ 774  2023 29510          1 St. Louis city         MO   
+ 775  2023 30029          1 Flathead County        MT   
+ 776  2023 30031          2 Gallatin County        MT   
+ 777  2023 30063          2 Missoula County        MT   
+ 778  2023 30065          1 Musselshell County     MT   
+ 779  2023 30111          2 Yellowstone County     MT   
+ 780  2023 31001          1 Adams County           NE   
+ 781  2023 31109          2 Lancaster County       NE   
+ 782  2023 31153         10 Sarpy County           NE   
+ 783  2023 32003          1 Clark County           NV   
+ 784  2023 32007          1 Elko County            NV   
+ 785  2023 32031          1 Washoe County          NV   
+ 786  2023 33005          3 Cheshire County        NH   
+ 787  2023 33007          1 Coos County            NH   
+ 788  2023 33011          2 Hillsborough County    NH   
+ 789  2023 33015          3 Rockingham County      NH   
+ 790  2023 34001        226 Atlantic County        NJ   
+ 791  2023 34003        322 Bergen County          NJ   
+ 792  2023 34005       1407 Burlington County      NJ   
+ 793  2023 34007       2505 Camden County          NJ   
+ 794  2023 34009        148 Cape May County        NJ   
+ 795  2023 34011        190 Cumberland County      NJ   
+ 796  2023 34013        287 Essex County           NJ   
+ 797  2023 34015       3136 Gloucester County      NJ   
+ 798  2023 34017        209 Hudson County          NJ   
+ 799  2023 34019         41 Hunterdon County       NJ   
+ 800  2023 34021        803 Mercer County          NJ   
+ 801  2023 34023        644 Middlesex County       NJ   
+ 802  2023 34025        232 Monmouth County        NJ   
+ 803  2023 34027        291 Morris County          NJ   
+ 804  2023 34029        163 Ocean County           NJ   
+ 805  2023 34031        126 Passaic County         NJ   
+ 806  2023 34033        528 Salem County           NJ   
+ 807  2023 34035        248 Somerset County        NJ   
+ 808  2023 34037         21 Sussex County          NJ   
+ 809  2023 34039        218 Union County           NJ   
+ 810  2023 34041         32 Warren County          NJ   
+ 811  2023 35001          3 Bernalillo County      NM   
+ 812  2023 35029          1 Luna County            NM   
+ 813  2023 35045          4 San Juan County        NM   
+ 814  2023 35049          1 Santa Fe County        NM   
+ 815  2023 35057          2 Torrance County        NM   
+ 816  2023 36001         17 Albany County          NY   
+ 817  2023 36005         78 Bronx County           NY   
+ 818  2023 36007         12 Broome County          NY   
+ 819  2023 36013          5 Chautauqua County      NY   
+ 820  2023 36015          6 Chemung County         NY   
+ 821  2023 36017          4 Chenango County        NY   
+ 822  2023 36019          1 Clinton County         NY   
+ 823  2023 36021          6 Columbia County        NY   
+ 824  2023 36023          2 Cortland County        NY   
+ 825  2023 36025          2 Delaware County        NY   
+ 826  2023 36027         26 Dutchess County        NY   
+ 827  2023 36029         21 Erie County            NY   
+ 828  2023 36031          2 Essex County           NY   
+ 829  2023 36037          1 Genesee County         NY   
+ 830  2023 36039          3 Greene County          NY   
+ 831  2023 36043          2 Herkimer County        NY   
+ 832  2023 36045          2 Jefferson County       NY   
+ 833  2023 36047        226 Kings County           NY   
+ 834  2023 36051          2 Livingston County      NY   
+ 835  2023 36053          4 Madison County         NY   
+ 836  2023 36055         29 Monroe County          NY   
+ 837  2023 36059        109 Nassau County          NY   
+ 838  2023 36061       1100 New York County        NY   
+ 839  2023 36063          3 Niagara County         NY   
+ 840  2023 36067         21 Onondaga County        NY   
+ 841  2023 36069          1 Ontario County         NY   
+ 842  2023 36071         31 Orange County          NY   
+ 843  2023 36073          1 Orleans County         NY   
+ 844  2023 36077         10 Otsego County          NY   
+ 845  2023 36081        182 Queens County          NY   
+ 846  2023 36083          3 Rensselaer County      NY   
+ 847  2023 36085         48 Richmond County        NY   
+ 848  2023 36087         25 Rockland County        NY   
+ 849  2023 36089          4 St. Lawrence County    NY   
+ 850  2023 36091          5 Saratoga County        NY   
+ 851  2023 36093          1 Schenectady County     NY   
+ 852  2023 36097          1 Schuyler County        NY   
+ 853  2023 36101         11 Steuben County         NY   
+ 854  2023 36103        100 Suffolk County         NY   
+ 855  2023 36105         14 Sullivan County        NY   
+ 856  2023 36107          3 Tioga County           NY   
+ 857  2023 36109         30 Tompkins County        NY   
+ 858  2023 36111          7 Ulster County          NY   
+ 859  2023 36113          3 Warren County          NY   
+ 860  2023 36115          1 Washington County      NY   
+ 861  2023 36119         86 Westchester County     NY   
+ 862  2023 36121          1 Wyoming County         NY   
+ 863  2023 37001          3 Alamance County        NC   
+ 864  2023 37013          1 Beaufort County        NC   
+ 865  2023 37017          1 Bladen County          NC   
+ 866  2023 37021          2 Buncombe County        NC   
+ 867  2023 37023          1 Burke County           NC   
+ 868  2023 37025          1 Cabarrus County        NC   
+ 869  2023 37031          1 Carteret County        NC   
+ 870  2023 37035          4 Catawba County         NC   
+ 871  2023 37049          1 Craven County          NC   
+ 872  2023 37055          8 Dare County            NC   
+ 873  2023 37063          2 Durham County          NC   
+ 874  2023 37067          6 Forsyth County         NC   
+ 875  2023 37071          2 Gaston County          NC   
+ 876  2023 37077          3 Granville County       NC   
+ 877  2023 37081         12 Guilford County        NC   
+ 878  2023 37083          1 Halifax County         NC   
+ 879  2023 37101          1 Johnston County        NC   
+ 880  2023 37105          2 Lee County             NC   
+ 881  2023 37107          7 Lenoir County          NC   
+ 882  2023 37119         14 Mecklenburg County     NC   
+ 883  2023 37123          1 Montgomery County      NC   
+ 884  2023 37125          1 Moore County           NC   
+ 885  2023 37127          2 Nash County            NC   
+ 886  2023 37129          8 New Hanover County     NC   
+ 887  2023 37133          1 Onslow County          NC   
+ 888  2023 37135          1 Orange County          NC   
+ 889  2023 37143          1 Perquimans County      NC   
+ 890  2023 37145          1 Person County          NC   
+ 891  2023 37147          5 Pitt County            NC   
+ 892  2023 37155          2 Robeson County         NC   
+ 893  2023 37159          3 Rowan County           NC   
+ 894  2023 37161          1 Rutherford County      NC   
+ 895  2023 37163          3 Sampson County         NC   
+ 896  2023 37165          1 Scotland County        NC   
+ 897  2023 37179          4 Union County           NC   
+ 898  2023 37183         24 Wake County            NC   
+ 899  2023 37191          1 Wayne County           NC   
+ 900  2023 38017          1 Cass County            ND   
+ 901  2023 38025          1 Dunn County            ND   
+ 902  2023 38101          4 Ward County            ND   
+ 903  2023 38105          1 Williams County        ND   
+ 904  2023 39015          1 Brown County           OH   
+ 905  2023 39017          3 Butler County          OH   
+ 906  2023 39025          1 Clermont County        OH   
+ 907  2023 39029          1 Columbiana County      OH   
+ 908  2023 39035         13 Cuyahoga County        OH   
+ 909  2023 39041          6 Delaware County        OH   
+ 910  2023 39043          2 Erie County            OH   
+ 911  2023 39047          1 Fayette County         OH   
+ 912  2023 39049         15 Franklin County        OH   
+ 913  2023 39055          2 Geauga County          OH   
+ 914  2023 39057          6 Greene County          OH   
+ 915  2023 39059          1 Guernsey County        OH   
+ 916  2023 39061         10 Hamilton County        OH   
+ 917  2023 39063          1 Hancock County         OH   
+ 918  2023 39085          3 Lake County            OH   
+ 919  2023 39093          6 Lorain County          OH   
+ 920  2023 39095          3 Lucas County           OH   
+ 921  2023 39099          2 Mahoning County        OH   
+ 922  2023 39103          4 Medina County          OH   
+ 923  2023 39107          3 Mercer County          OH   
+ 924  2023 39109          1 Miami County           OH   
+ 925  2023 39113          3 Montgomery County      OH   
+ 926  2023 39139          4 Richland County        OH   
+ 927  2023 39143          1 Sandusky County        OH   
+ 928  2023 39149          2 Shelby County          OH   
+ 929  2023 39151          2 Stark County           OH   
+ 930  2023 39153         11 Summit County          OH   
+ 931  2023 39155          6 Trumbull County        OH   
+ 932  2023 39157          3 Tuscarawas County      OH   
+ 933  2023 39165          4 Warren County          OH   
+ 934  2023 39169          2 Wayne County           OH   
+ 935  2023 39175          2 Wyandot County         OH   
+ 936  2023 40015          1 Caddo County           OK   
+ 937  2023 40030          3 &lt;NA&gt;                   &lt;NA&gt; 
+ 938  2023 40050          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 939  2023 40070          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 940  2023 40103          1 Noble County           OK   
+ 941  2023 40119          1 Payne County           OK   
+ 942  2023 40131          8 Rogers County          OK   
+ 943  2023 40132          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 944  2023 40136          5 &lt;NA&gt;                   &lt;NA&gt; 
+ 945  2023 40143          2 Tulsa County           OK   
+ 946  2023 40190          6 &lt;NA&gt;                   &lt;NA&gt; 
+ 947  2023 40210          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 948  2023 40250          2 &lt;NA&gt;                   &lt;NA&gt; 
+ 949  2023 40270          1 &lt;NA&gt;                   &lt;NA&gt; 
+ 950  2023 41019          1 Douglas County         OR   
+ 951  2023 41039          1 Lane County            OR   
+ 952  2023 41041          1 Lincoln County         OR   
+ 953  2023 41067          1 Washington County      OR   
+ 954  2023 42001         71 Adams County           PA   
+ 955  2023 42003       1659 Allegheny County       PA   
+ 956  2023 42005         17 Armstrong County       PA   
+ 957  2023 42007         46 Beaver County          PA   
+ 958  2023 42009         15 Bedford County         PA   
+ 959  2023 42011       1614 Berks County           PA   
+ 960  2023 42013        121 Blair County           PA   
+ 961  2023 42015         30 Bradford County        PA   
+ 962  2023 42017       5825 Bucks County           PA   
+ 963  2023 42019        119 Butler County          PA   
+ 964  2023 42021         84 Cambria County         PA   
+ 965  2023 42023          2 Cameron County         PA   
+ 966  2023 42025         50 Carbon County          PA   
+ 967  2023 42027        297 Centre County          PA   
+ 968  2023 42029      25973 Chester County         PA   
+ 969  2023 42031          7 Clarion County         PA   
+ 970  2023 42033         30 Clearfield County      PA   
+ 971  2023 42035         25 Clinton County         PA   
+ 972  2023 42037         87 Columbia County        PA   
+ 973  2023 42039         16 Crawford County        PA   
+ 974  2023 42041        785 Cumberland County      PA   
+ 975  2023 42043       1467 Dauphin County         PA   
+ 976  2023 42045      96965 Delaware County        PA   
+ 977  2023 42047         14 Elk County             PA   
+ 978  2023 42049        105 Erie County            PA   
+ 979  2023 42051         21 Fayette County         PA   
+ 980  2023 42055        159 Franklin County        PA   
+ 981  2023 42057          6 Fulton County          PA   
+ 982  2023 42059          3 Greene County          PA   
+ 983  2023 42061         26 Huntingdon County      PA   
+ 984  2023 42063         33 Indiana County         PA   
+ 985  2023 42065         12 Jefferson County       PA   
+ 986  2023 42067          6 Juniata County         PA   
+ 987  2023 42069        426 Lackawanna County      PA   
+ 988  2023 42071       1525 Lancaster County       PA   
+ 989  2023 42073         15 Lawrence County        PA   
+ 990  2023 42075        253 Lebanon County         PA   
+ 991  2023 42077       1707 Lehigh County          PA   
+ 992  2023 42079        754 Luzerne County         PA   
+ 993  2023 42081        119 Lycoming County        PA   
+ 994  2023 42083          5 McKean County          PA   
+ 995  2023 42085         40 Mercer County          PA   
+ 996  2023 42087         24 Mifflin County         PA   
+ 997  2023 42089        303 Monroe County          PA   
+ 998  2023 42091      39735 Montgomery County      PA   
+ 999  2023 42093         58 Montour County         PA   
+1000  2023 42095       1063 Northampton County     PA   
+1001  2023 42097         78 Northumberland County  PA   
+1002  2023 42099         10 Perry County           PA   
+1003  2023 42101      68068 Philadelphia County    PA   
+1004  2023 42103         26 Pike County            PA   
+1005  2023 42105          1 Potter County          PA   
+1006  2023 42107        243 Schuylkill County      PA   
+1007  2023 42109         65 Snyder County          PA   
+1008  2023 42111         18 Somerset County        PA   
+1009  2023 42113          4 Sullivan County        PA   
+1010  2023 42115          9 Susquehanna County     PA   
+1011  2023 42117         12 Tioga County           PA   
+1012  2023 42119         47 Union County           PA   
+1013  2023 42121         10 Venango County         PA   
+1014  2023 42123          2 Warren County          PA   
+1015  2023 42125        101 Washington County      PA   
+1016  2023 42127         49 Wayne County           PA   
+1017  2023 42129        104 Westmoreland County    PA   
+1018  2023 42131         12 Wyoming County         PA   
+1019  2023 42133       1015 York County            PA   
+1020  2023 44001          2 Bristol County         RI   
+1021  2023 44003          5 Kent County            RI   
+1022  2023 44005          4 Newport County         RI   
+1023  2023 44007         20 Providence County      RI   
+1024  2023 44009         11 Washington County      RI   
+1025  2023 45019          5 Charleston County      SC   
+1026  2023 45023          1 Chester County         SC   
+1027  2023 45025          1 Chesterfield County    SC   
+1028  2023 45031          1 Darlington County      SC   
+1029  2023 45041          2 Florence County        SC   
+1030  2023 45051          9 Horry County           SC   
+1031  2023 45055          1 Kershaw County         SC   
+1032  2023 45057          1 Lancaster County       SC   
+1033  2023 45059          2 Laurens County         SC   
+1034  2023 45063          1 Lexington County       SC   
+1035  2023 45073          1 Oconee County          SC   
+1036  2023 45079          7 Richland County        SC   
+1037  2023 45083          4 Spartanburg County     SC   
+1038  2023 45085          1 Sumter County          SC   
+1039  2023 45091          1 York County            SC   
+1040  2023 46065          1 Hughes County          SD   
+1041  2023 46099          1 Minnehaha County       SD   
+1042  2023 46103          6 Pennington County      SD   
+1043  2023 47023          1 Chester County         TN   
+1044  2023 47037         19 Davidson County        TN   
+1045  2023 47065          2 Hamilton County        TN   
+1046  2023 47071          1 Hardin County          TN   
+1047  2023 47103          1 Lincoln County         TN   
+1048  2023 47115          2 Marion County          TN   
+1049  2023 47147          1 Robertson County       TN   
+1050  2023 47157          5 Shelby County          TN   
+1051  2023 47179          2 Washington County      TN   
+1052  2023 48029          1 Bexar County           TX   
+1053  2023 48037          2 Bowie County           TX   
+1054  2023 48041          2 Brazos County          TX   
+1055  2023 48049          3 Brown County           TX   
+1056  2023 48085          1 Collin County          TX   
+1057  2023 48091          1 Comal County           TX   
+1058  2023 48113         14 Dallas County          TX   
+1059  2023 48121          2 Denton County          TX   
+1060  2023 48135          1 Ector County           TX   
+1061  2023 48157          1 Fort Bend County       TX   
+1062  2023 48167          1 Galveston County       TX   
+1063  2023 48187          1 Guadalupe County       TX   
+1064  2023 48201         24 Harris County          TX   
+1065  2023 48211          1 Hemphill County        TX   
+1066  2023 48215          1 Hidalgo County         TX   
+1067  2023 48233          2 Hutchinson County      TX   
+1068  2023 48245          1 Jefferson County       TX   
+1069  2023 48303          1 Lubbock County         TX   
+1070  2023 48309          1 McLennan County        TX   
+1071  2023 48323          1 Maverick County        TX   
+1072  2023 48329          2 Midland County         TX   
+1073  2023 48339          1 Montgomery County      TX   
+1074  2023 48375          1 Potter County          TX   
+1075  2023 48401          1 Rusk County            TX   
+1076  2023 48421          1 Sherman County         TX   
+1077  2023 48429          2 Stephens County        TX   
+1078  2023 48439         12 Tarrant County         TX   
+1079  2023 48441          3 Taylor County          TX   
+1080  2023 48453          1 Travis County          TX   
+1081  2023 48467          1 Van Zandt County       TX   
+1082  2023 48485          4 Wichita County         TX   
+1083  2023 48491          1 Williamson County      TX   
+1084  2023 49003          1 Box Elder County       UT   
+1085  2023 49005          3 Cache County           UT   
+1086  2023 49053          3 Washington County      UT   
+1087  2023 49057          1 Weber County           UT   
+1088  2023 50001         15 Addison County         VT   
+1089  2023 50003          8 Bennington County      VT   
+1090  2023 50007          5 Chittenden County      VT   
+1091  2023 50019          1 Orleans County         VT   
+1092  2023 50021          3 Rutland County         VT   
+1093  2023 50027          1 Windsor County         VT   
+1094  2023 50510          1 &lt;NA&gt;                   &lt;NA&gt; 
+1095  2023 51001          6 Accomack County        VA   
+1096  2023 51003          5 Albemarle County       VA   
+1097  2023 51005          1 Alleghany County       VA   
+1098  2023 51013         58 Arlington County       VA   
+1099  2023 51029          1 Buckingham County      VA   
+1100  2023 51041          4 Chesterfield County    VA   
+1101  2023 51047          1 Culpeper County        VA   
+1102  2023 51057          1 Essex County           VA   
+1103  2023 51059        138 Fairfax County         VA   
+1104  2023 51061          5 Fauquier County        VA   
+1105  2023 51067          1 Franklin County        VA   
+1106  2023 51069         12 Frederick County       VA   
+1107  2023 51073          3 Gloucester County      VA   
+1108  2023 51075          3 Goochland County       VA   
+1109  2023 51079          1 Greene County          VA   
+1110  2023 51085          4 Hanover County         VA   
+1111  2023 51087         29 Henrico County         VA   
+1112  2023 51089          1 Henry County           VA   
+1113  2023 51095          1 James City County      VA   
+1114  2023 51101          1 King William County    VA   
+1115  2023 51107         15 Loudoun County         VA   
+1116  2023 51109          1 Louisa County          VA   
+1117  2023 51115          1 Mathews County         VA   
+1118  2023 51117          1 Mecklenburg County     VA   
+1119  2023 51121          1 Montgomery County      VA   
+1120  2023 51131          2 Northampton County     VA   
+1121  2023 51137          1 Orange County          VA   
+1122  2023 51143          4 Pittsylvania County    VA   
+1123  2023 51153         20 Prince William County  VA   
+1124  2023 51155          1 Pulaski County         VA   
+1125  2023 51171          4 Shenandoah County      VA   
+1126  2023 51175          1 Southampton County     VA   
+1127  2023 51177          9 Spotsylvania County    VA   
+1128  2023 51179          8 Stafford County        VA   
+1129  2023 51187          1 Warren County          VA   
+1130  2023 51190          3 &lt;NA&gt;                   &lt;NA&gt; 
+1131  2023 51193          2 Westmoreland County    VA   
+1132  2023 51199          9 York County            VA   
+1133  2023 51310          1 &lt;NA&gt;                   &lt;NA&gt; 
+1134  2023 51399          1 &lt;NA&gt;                   &lt;NA&gt; 
+1135  2023 51510         28 Alexandria city        VA   
+1136  2023 51540          8 Charlottesville city   VA   
+1137  2023 51550          2 Chesapeake city        VA   
+1138  2023 51600          7 Fairfax city           VA   
+1139  2023 51610          1 Falls Church city      VA   
+1140  2023 51630          2 Fredericksburg city    VA   
+1141  2023 51650          1 Hampton city           VA   
+1142  2023 51660          4 Harrisonburg city      VA   
+1143  2023 51670          6 Hopewell city          VA   
+1144  2023 51680          1 Lynchburg city         VA   
+1145  2023 51683          3 Manassas city          VA   
+1146  2023 51690          1 Martinsville city      VA   
+1147  2023 51700          4 Newport News city      VA   
+1148  2023 51710          5 Norfolk city           VA   
+1149  2023 51760         15 Richmond city          VA   
+1150  2023 51770          3 Roanoke city           VA   
+1151  2023 51800          1 Suffolk city           VA   
+1152  2023 51810         12 Virginia Beach city    VA   
+1153  2023 51820          3 Waynesboro city        VA   
+1154  2023 51830          4 Williamsburg city      VA   
+1155  2023 51840          4 Winchester city        VA   
+1156  2023 53001          1 Adams County           WA   
+1157  2023 53003          1 Asotin County          WA   
+1158  2023 53017          2 Douglas County         WA   
+1159  2023 53021          4 Franklin County        WA   
+1160  2023 53025          2 Grant County           WA   
+1161  2023 53033         14 King County            WA   
+1162  2023 53039          1 Klickitat County       WA   
+1163  2023 53041          1 Lewis County           WA   
+1164  2023 53051          1 Pend Oreille County    WA   
+1165  2023 53053          1 Pierce County          WA   
+1166  2023 53057          2 Skagit County          WA   
+1167  2023 53061          7 Snohomish County       WA   
+1168  2023 53063          2 Spokane County         WA   
+1169  2023 53065          1 Stevens County         WA   
+1170  2023 53071          2 Walla Walla County     WA   
+1171  2023 54003          2 Berkeley County        WV   
+1172  2023 54007          1 Braxton County         WV   
+1173  2023 54023          1 Grant County           WV   
+1174  2023 54027          1 Hampshire County       WV   
+1175  2023 54037          4 Jefferson County       WV   
+1176  2023 54039          3 Kanawha County         WV   
+1177  2023 54053          2 Mason County           WV   
+1178  2023 54055          2 Mercer County          WV   
+1179  2023 54057          3 Mineral County         WV   
+1180  2023 54061          9 Monongalia County      WV   
+1181  2023 54065          1 Morgan County          WV   
+1182  2023 54079          2 Putnam County          WV   
+1183  2023 54083          1 Randolph County        WV   
+1184  2023 54107          2 Wood County            WV   
+1185  2023 55003          1 Ashland County         WI   
+1186  2023 55025          1 Dane County            WI   
+1187  2023 55029          1 Door County            WI   
+1188  2023 55035          2 Eau Claire County      WI   
+1189  2023 55045          3 Green County           WI   
+1190  2023 55079          3 Milwaukee County       WI   
+1191  2023 55101          1 Racine County          WI   
+1192  2023 55141          1 Wood County            WI   
+1193  2023 56005          1 Campbell County        WY   
+1194  2023 56023          1 Lincoln County         WY   
+1195  2023 56025          1 Natrona County         WY   
+1196  2023 56039          7 Teton County           WY   
+1197  2023 60014          6 &lt;NA&gt;                   &lt;NA&gt; 
+1198  2023 60150          1 &lt;NA&gt;                   &lt;NA&gt; 
+1199  2023 60170          1 &lt;NA&gt;                   &lt;NA&gt; 
+1200  2023 60190          1 &lt;NA&gt;                   &lt;NA&gt; 
+1201  2023 60230          2 &lt;NA&gt;                   &lt;NA&gt; 
+1202  2023 60290          2 &lt;NA&gt;                   &lt;NA&gt; 
+1203  2023 60371          2 &lt;NA&gt;                   &lt;NA&gt; 
+1204  2023 60372          3 &lt;NA&gt;                   &lt;NA&gt; 
+1205  2023 60373          6 &lt;NA&gt;                   &lt;NA&gt; 
+1206  2023 60374         16 &lt;NA&gt;                   &lt;NA&gt; 
+1207  2023 60376          2 &lt;NA&gt;                   &lt;NA&gt; 
+1208  2023 60377          3 &lt;NA&gt;                   &lt;NA&gt; 
+1209  2023 60379          7 &lt;NA&gt;                   &lt;NA&gt; 
+1210  2023 60411          1 &lt;NA&gt;                   &lt;NA&gt; 
+1211  2023 60470          3 &lt;NA&gt;                   &lt;NA&gt; 
+1212  2023 60530          7 &lt;NA&gt;                   &lt;NA&gt; 
+1213  2023 60552          4 &lt;NA&gt;                   &lt;NA&gt; 
+1214  2023 60590          6 &lt;NA&gt;                   &lt;NA&gt; 
+1215  2023 60610          1 &lt;NA&gt;                   &lt;NA&gt; 
+1216  2023 60650          2 &lt;NA&gt;                   &lt;NA&gt; 
+1217  2023 60670          4 &lt;NA&gt;                   &lt;NA&gt; 
+1218  2023 60710          1 &lt;NA&gt;                   &lt;NA&gt; 
+1219  2023 60730         22 &lt;NA&gt;                   &lt;NA&gt; 
+1220  2023 60750         14 &lt;NA&gt;                   &lt;NA&gt; 
+1221  2023 60830          2 &lt;NA&gt;                   &lt;NA&gt; 
+1222  2023 60855          6 &lt;NA&gt;                   &lt;NA&gt; 
+1223  2023 60890          3 &lt;NA&gt;                   &lt;NA&gt; 
+1224  2023 61130          1 &lt;NA&gt;                   &lt;NA&gt; 
+1225  2023 80010          5 &lt;NA&gt;                   &lt;NA&gt; 
+1226  2023 80050          2 &lt;NA&gt;                   &lt;NA&gt; 
+1227  2023 80119          2 &lt;NA&gt;                   &lt;NA&gt; 
+1228  2023 80130          2 &lt;NA&gt;                   &lt;NA&gt; 
+1229  2023 80310          3 &lt;NA&gt;                   &lt;NA&gt; 
+1230  2023 80350          4 &lt;NA&gt;                   &lt;NA&gt; 
+1231  2023 80370          4 &lt;NA&gt;                   &lt;NA&gt; 
+1232  2023 80490          1 &lt;NA&gt;                   &lt;NA&gt; 
+1233  2023 80590          5 &lt;NA&gt;                   &lt;NA&gt; 
+1234  2023 80679          2 &lt;NA&gt;                   &lt;NA&gt; 
+1235  2023 80870          1 &lt;NA&gt;                   &lt;NA&gt; 
+1236  2023 81010          1 &lt;NA&gt;                   &lt;NA&gt; 
+1237  2023 81170          2 &lt;NA&gt;                   &lt;NA&gt; 
+1238  2023 90010         74 &lt;NA&gt;                   &lt;NA&gt; 
+1239  2023 90011          1 &lt;NA&gt;                   &lt;NA&gt; 
+1240  2023 90012         14 &lt;NA&gt;                   &lt;NA&gt; 
+1241  2023 90034         33 &lt;NA&gt;                   &lt;NA&gt; 
+1242  2023 90035         15 &lt;NA&gt;                   &lt;NA&gt; 
+1243  2023 90039          3 &lt;NA&gt;                   &lt;NA&gt; 
+1244  2023 90052          2 &lt;NA&gt;                   &lt;NA&gt; 
+1245  2023 90053          7 &lt;NA&gt;                   &lt;NA&gt; 
+1246  2023 90075          6 &lt;NA&gt;                   &lt;NA&gt; 
+1247  2023 90076          2 &lt;NA&gt;                   &lt;NA&gt; 
+1248  2023 90091         59 &lt;NA&gt;                   &lt;NA&gt; 
+1249  2023 90093         20 &lt;NA&gt;                   &lt;NA&gt; 
+1250  2023 90116          4 &lt;NA&gt;                   &lt;NA&gt; 
+1251  2023 90117          3 &lt;NA&gt;                   &lt;NA&gt; 
+1252  2023 90158          3 &lt;NA&gt;                   &lt;NA&gt; </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total number of workers in 2023 and 2013</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>del_all_flow <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">2023</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_workers =</span> <span class="fu">sum</span>(workers))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+   year total_workers
+  &lt;int&gt;         &lt;int&gt;
+1  2013        261271
+2  2023        281371</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># share change</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>del_all_flow_wide <span class="ot">&lt;-</span> del_all_flow_wide <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">share_2013 =</span> workers_2013 <span class="sc">/</span> <span class="fu">sum</span>(workers_2013, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">share_2023 =</span> workers_2023 <span class="sc">/</span> <span class="fu">sum</span>(workers_2023, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share_change =</span> share_2023 <span class="sc">-</span> share_2013)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>del_all_top_10 <span class="ot">&lt;-</span> del_all_flow_wide <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(workers_2023, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(w_county, county, share_2013, share_2023, workers_2013, workers_2023, change) <span class="sc">|&gt;</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"../data/processed/del_all_top_10.csv"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>del_all_top_10_column <span class="ot">&lt;-</span> del_all_flow_wide <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(workers_2023, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county,state,workers_2013, workers_2023) <span class="sc">|&gt;</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">county =</span> <span class="st">"Total"</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">state =</span> <span class="cn">NA</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">workers_2013 =</span> <span class="fu">sum</span>(del_all_flow_wide<span class="sc">$</span>workers_2013, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">workers_2023 =</span> <span class="fu">sum</span>(del_all_flow_wide<span class="sc">$</span>workers_2023, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"../data/processed/del_all_top_10_column.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About the data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>BLS - Quarterly Census of Employment and Wages (QCEW)</li>
+<li>Source: https://data.bls.gov/cew/apps/table_maker/v4/table_maker.htm#type=7&amp;year=2025&amp;qtr=A&amp;own=5&amp;area=42045&amp;supp=0</li>
+<li>NAICS Code instruction: https://www.bls.gov/iag/tgs/iag_index_naics.htm</li>
+<li>data dictionary: https://www.bls.gov/cew/additional-resources/open-data/csv-data-slices.htm</li>
+<li>file download: http://www.bls.gov/cew/data/api/2025/a/area/42045.csv</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
